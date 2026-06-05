@@ -979,3 +979,194 @@ button, a {
   .compact-row b { padding-left: 12px; font-size: 23px; }
   .compact-row span, .compact-row strong { font-size: 30px; }
 }
+
+/* Update v2: ganda, ikon tim, shuttle-only serve, dan tombol menu utama */
+.home-btn {
+  height: 58px;
+  border-radius: 13px;
+  border: 1px solid rgba(124, 255, 58, .42);
+  background: rgba(124, 255, 58, .10);
+  color: var(--green);
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0 18px;
+  white-space: nowrap;
+  box-shadow: inset 0 0 18px rgba(124,255,58,.08);
+}
+
+.home-btn:hover {
+  background: rgba(124, 255, 58, .18);
+  box-shadow: 0 0 18px rgba(124,255,58,.20), inset 0 0 18px rgba(124,255,58,.10);
+}
+
+.flag-badge.team-icon-rendered,
+.team-icon-mini.team-icon-rendered {
+  background: rgba(15, 23, 42, .90);
+  border: 1px solid rgba(148, 163, 184, .26);
+  overflow: hidden;
+}
+
+.flag-badge.team-icon-rendered {
+  font-size: 48px;
+  text-align: center;
+}
+
+.team-icon-mini.team-icon-rendered {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 24px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.team-icon-rendered.has-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
+}
+
+.team-name-display,
+.team-name-compact {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.02;
+  vertical-align: middle;
+}
+
+.team-primary {
+  display: block;
+}
+
+.player-name .team-secondary {
+  display: block;
+  margin-top: 9px;
+  color: #cbd5e1;
+  font-size: .54em;
+  letter-spacing: .25px;
+}
+
+.team-name-compact .team-secondary {
+  display: block;
+  color: #cbd5e1;
+  font-size: .58em;
+  margin-top: 5px;
+}
+
+.shuttle-only {
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(0 0 8px rgba(124,255,58,.7));
+  background-image: url("data:image/svg+xml,%3Csvg width='96' height='96' viewBox='0 0 96 96' xmlns='http://www.w3.org/2000/svg'%3E%3Cg transform='rotate(-32 48 48)'%3E%3Cellipse cx='22' cy='72' rx='13' ry='10' fill='%237CFF3A'/%3E%3Cpath d='M29 67 L76 18 L83 25 L42 75 Z' fill='%23E5FFE0' stroke='%237CFF3A' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M39 58 L76 22 M45 65 L82 28 M51 70 L86 35 M34 53 L68 15' stroke='%237CFF3A' stroke-width='4' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.serve-badge .shuttle-only {
+  width: 52px;
+  height: 52px;
+}
+
+.serve-badge.inline {
+  margin-left: 14px;
+  display: none;
+}
+
+.compact-row.serving .serve-badge.inline {
+  display: inline-block;
+}
+
+.status-shuttle,
+.action-shuttle {
+  width: 38px;
+  height: 38px;
+}
+
+.action-grid {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.action-grid .home-action {
+  color: var(--green);
+  border-color: rgba(124,255,58,.35);
+  box-shadow: inset 0 0 18px rgba(124,255,58,.09);
+}
+
+.form-grid select {
+  margin-top: 8px;
+  width: 100%;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(2,6,23,.55);
+  color: var(--text);
+  padding: 0 14px;
+  font-size: 16px;
+  outline: none;
+}
+
+.form-grid select:focus {
+  border-color: var(--green);
+}
+
+.double-hidden {
+  display: none !important;
+}
+
+.form-note b {
+  color: var(--green);
+}
+
+.control-card h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  white-space: normal;
+}
+
+.compact-row b {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (max-width: 1100px) {
+  .home-btn {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+  .action-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .team-icon-mini.team-icon-rendered {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    margin-right: 4px;
+  }
+  .player-name .team-secondary {
+    font-size: .56em;
+    margin-top: 4px;
+  }
+  .shuttle-only {
+    width: 34px;
+    height: 34px;
+  }
+  .serve-badge .shuttle-only {
+    width: 36px;
+    height: 36px;
+  }
+}
