@@ -7,20 +7,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="stylesheet" href="css/style.css?v=4.0.0" />
 </head>
 <body class="page-shell admin-page">
   <header class="topbar">
     <div class="brand">
-      <div class="brand-logo">🏸</div>
+      <div class="brand-logo shuttle-mark"></div>
       <div>
         <h1 id="adminTitle">GASTON SCOREBOARD</h1>
         <p>Admin Control Panel • <span id="adminRound">Final</span> • <span id="adminCourt">Court 1</span></p>
       </div>
     </div>
     <div class="top-actions">
-      <a class="home-btn" href="index.html">← Menu Utama</a>
       <span class="live-pill"><span></span> LIVE</span>
+      <a class="home-btn" href="index.html">⌂ Menu Utama</a>
       <button class="icon-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
     </div>
   </header>
@@ -31,13 +31,19 @@
       <div class="compact-score">
         <div class="compact-head"><span></span><span>Game 1</span><span>Game 2</span><span>Game 3</span></div>
         <div id="adminRowA" class="compact-row">
-          <b><span class="team-icon-mini" id="adminIconA">🇮🇩</span><span id="adminPlayerA" class="team-name-compact">Player A</span><small class="serve-badge inline" id="adminServeA"><span class="shuttle-only"></span></small></b>
+          <b class="compact-names">
+            <span id="adminA1Line" class="compact-player-line"><span id="adminPlayerA1">Player A</span></span>
+            <span id="adminA2Line" class="compact-player-line"><span id="adminPlayerA2"></span></span>
+          </b>
           <span id="adminGame1A">0</span>
           <span id="adminGame2A">0</span>
           <strong id="adminGame3A">0</strong>
         </div>
         <div id="adminRowB" class="compact-row">
-          <b><span class="team-icon-mini" id="adminIconB">✤</span><span id="adminPlayerB" class="team-name-compact">Player B</span><small class="serve-badge inline" id="adminServeB"><span class="shuttle-only"></span></small></b>
+          <b class="compact-names">
+            <span id="adminB1Line" class="compact-player-line"><span id="adminPlayerB1">Player B</span></span>
+            <span id="adminB2Line" class="compact-player-line"><span id="adminPlayerB2"></span></span>
+          </b>
           <span id="adminGame1B">0</span>
           <span id="adminGame2B">0</span>
           <strong id="adminGame3B">0</strong>
@@ -49,16 +55,24 @@
       <div class="section-title"><span>2</span> Score Control</div>
       <div class="control-cards">
         <div class="control-card" id="controlA">
-          <h2><span class="team-icon-mini" id="controlIconA">🇮🇩</span><span id="controlNameA">Player A</span></h2>
+          <h2 id="controlNameA">Team A</h2>
           <button class="score-btn plus" data-action="add" data-player="A">+1</button>
           <button class="score-btn minus" data-action="minus" data-player="A">-1</button>
-          <button class="serve-btn" data-player="A">Serve <span id="serveToggleA"></span></button>
+          <div class="server-select">
+            <small>Server Tim A</small>
+            <button class="server-person-btn" data-server="A1"><span id="serverBtnA1">Pemain 1</span></button>
+            <button class="server-person-btn double-only" data-server="A2"><span id="serverBtnA2">Pemain 2</span></button>
+          </div>
         </div>
         <div class="control-card" id="controlB">
-          <h2><span class="team-icon-mini" id="controlIconB">✤</span><span id="controlNameB">Player B</span></h2>
+          <h2 id="controlNameB">Team B</h2>
           <button class="score-btn plus" data-action="add" data-player="B">+1</button>
           <button class="score-btn minus" data-action="minus" data-player="B">-1</button>
-          <button class="serve-btn" data-player="B">Serve <span id="serveToggleB"></span></button>
+          <div class="server-select">
+            <small>Server Tim B</small>
+            <button class="server-person-btn" data-server="B1"><span id="serverBtnB1">Pemain 1</span></button>
+            <button class="server-person-btn double-only" data-server="B2"><span id="serverBtnB2">Pemain 2</span></button>
+          </div>
         </div>
       </div>
     </section>
@@ -66,13 +80,12 @@
     <section class="panel match-actions">
       <div class="section-title"><span>3</span> Match Actions</div>
       <div class="action-grid">
+        <a class="action-link" href="index.html">⌂<span>Menu Utama</span></a>
         <button id="undoBtn">↩<span>Undo</span></button>
-        <button id="resetRallyBtn"><span class="shuttle-only action-shuttle"></span><span>Reset Rally</span></button>
+        <button id="resetRallyBtn"><i class="shuttle-icon"></i><span>Reset Rally</span></button>
         <button id="nextGameBtn">▶▶<span>Next Game</span></button>
         <button id="finishBtn" class="danger">🏁<span>Finish Match</span></button>
-        <button id="swapBtn">⇄<span>Swap Sides</span></button>
         <button id="adminFullscreenBtn">⛶<span>Fullscreen</span></button>
-        <button id="homeBtn" class="home-action">⌂<span>Menu Utama</span></button>
       </div>
     </section>
 
@@ -89,11 +102,11 @@
         </div>
         <div class="info-card small">
           <div class="round-icon purple">◷</div>
-          <div><small>Timer</small><b id="adminTimer">00:00:00</b></div>
+          <div><small>Match Time</small><b id="adminTimer">00:00:00</b></div>
         </div>
         <div class="info-card small">
-          <div class="round-icon green-bg"><span class="shuttle-only status-shuttle"></span></div>
-          <div><small>Server</small><b id="adminServer">Team A</b></div>
+          <div class="round-icon green-bg"><i class="shuttle-icon tiny"></i></div>
+          <div><small>Server</small><b id="adminServer">A1</b></div>
         </div>
       </div>
     </section>
@@ -109,18 +122,16 @@
             <option value="double">Ganda / 2 Nama</option>
           </select>
         </label>
-        <label>Logo / Bendera A <input id="inputIconA" type="text" placeholder="Contoh: 🇮🇩 atau assets/logo-a.png" /></label>
-        <label>Logo / Bendera B <input id="inputIconB" type="text" placeholder="Contoh: 🇲🇾 atau https://.../logo.png" /></label>
-        <label>Pemain A - Nama 1<input id="inputPlayerA1" type="text" /></label>
-        <label class="double-only">Pemain A - Nama 2<input id="inputPlayerA2" type="text" /></label>
-        <label>Pemain B - Nama 1<input id="inputPlayerB1" type="text" /></label>
-        <label class="double-only">Pemain B - Nama 2<input id="inputPlayerB2" type="text" /></label>
+        <label>Pemain Tim A - Orang 1<input id="inputPlayerA1" type="text" /></label>
+        <label class="double-field">Pemain Tim A - Orang 2<input id="inputPlayerA2" type="text" /></label>
+        <label>Pemain Tim B - Orang 1<input id="inputPlayerB1" type="text" /></label>
+        <label class="double-field">Pemain Tim B - Orang 2<input id="inputPlayerB2" type="text" /></label>
       </div>
-      <button id="saveMatchInfo" class="primary-btn full">Save Match Info</button>
-      <p class="form-note">Logo/bendera dapat berupa emoji, path gambar di GitHub seperti <b>assets/logo-a.png</b>, atau URL gambar. Untuk ganda, pilih jenis pertandingan “Ganda / 2 Nama”.</p>
+      <button id="saveMatchInfo" class="primary-btn full">Save Match Info & Start Timer</button>
+      <p class="form-note">Timer pertandingan dimulai dari 00:00:00 setiap tombol ini diklik.</p>
     </section>
   </main>
 
-  <script type="module" src="js/admin.js?v=3"></script>
+  <script type="module" src="js/admin.js?v=4.0.0"></script>
 </body>
 </html>

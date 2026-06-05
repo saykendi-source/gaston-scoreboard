@@ -1,17 +1,18 @@
-import { db, ref, update, onValue, get } from "./firebase-config.js?v=3";
+import { db, ref, set, update, onValue, get } from "./firebase-config.js";
 import {
   getCourtNumber,
   courtPath,
   safeScore,
   getCurrentGameKey,
   calculateStatus,
-  updateClock,
-  renderTeamName,
-  applyTeamIcon,
-  getTeamIcon,
-  getTeamDisplayName,
-  getTeamNames
-} from "./utils.js?v=3";
+  getMatchDurationText,
+  getName,
+  getMatchType,
+  normalizeServer,
+  serverTeam,
+  teamLabel,
+  serverLabel
+} from "./utils.js";
 
 const courtNumber = getCourtNumber();
 const courtRef = ref(db, courtPath(courtNumber));
@@ -31,6 +32,13 @@ function setValue(id, value) {
   if (node) node.value = value ?? "";
 }
 
+function showDoubleFields(matchType) {
+  const isDouble = matchType === "double";
+  document.querySelectorAll(".double-field, .double-only").forEach(node => {
+    node.classList.toggle("is-hidden", !isDouble);
+  });
+}
+
 function getCurrentScores(data) {
   const gameKey = getCurrentGameKey(data);
   return {
@@ -46,33 +54,65 @@ function saveHistory() {
   if (historyStack.length > 25) historyStack.shift();
 }
 
-function toggleDoubleFields() {
-  const isDouble = el("inputMatchType")?.value === "double";
-  document.querySelectorAll(".double-only").forEach(field => {
-    field.classList.toggle("double-hidden", !isDouble);
+function markServer(data) {
+  const server = normalizeServer(data);
+
+  ["A1", "A2", "B1", "B2"].forEach(key => {
+    document.querySelector(`[data-server="${key}"]`)?.classList.toggle("active", key === server);
   });
+
+  ["adminA1Line", "adminA2Line", "adminB1Line", "adminB2Line"].forEach(id => {
+    el(id)?.classList.remove("server-person");
+  });
+
+  const lineMap = {
+    A1: "adminA1Line",
+    A2: "adminA2Line",
+    B1: "adminB1Line",
+    B2: "adminB2Line"
+  };
+
+  el(lineMap[server])?.classList.add("server-person");
+  el("adminRowA").classList.toggle("serving-team", serverTeam(server) === "A");
+  el("adminRowB").classList.toggle("serving-team", serverTeam(server) === "B");
+  el("controlA").classList.toggle("serving-team", serverTeam(server) === "A");
+  el("controlB").classList.toggle("serving-team", serverTeam(server) === "B");
 }
 
-function renderIcons(data) {
-  applyTeamIcon(el("adminIconA"), getTeamIcon(data, "A"), "🇮🇩");
-  applyTeamIcon(el("adminIconB"), getTeamIcon(data, "B"), "✤");
-  applyTeamIcon(el("controlIconA"), getTeamIcon(data, "A"), "🇮🇩");
-  applyTeamIcon(el("controlIconB"), getTeamIcon(data, "B"), "✤");
+function updateServerButtonNames(data) {
+  setText("serverBtnA1", getName(data, "playerA1", "Pemain A1"));
+  setText("serverBtnA2", getName(data, "playerA2", "Pemain A2"));
+  setText("serverBtnB1", getName(data, "playerB1", "Pemain B1"));
+  setText("serverBtnB2", getName(data, "playerB2", "Pemain B2"));
+}
+
+function updateTimer() {
+  setText("adminTimer", getMatchDurationText(currentData));
 }
 
 function render(data) {
   if (!data) return;
   currentData = data;
 
+  const matchType = getMatchType(data);
+  const a2 = getName(data, "playerA2", "");
+  const b2 = getName(data, "playerB2", "");
+
   setText("adminTitle", data.tournament || "GASTON SCOREBOARD");
   setText("adminRound", data.round || "-");
   setText("adminCourt", data.court || `Court ${courtNumber}`);
 
-  renderTeamName(el("adminPlayerA"), data, "A");
-  renderTeamName(el("adminPlayerB"), data, "B");
-  setText("controlNameA", getTeamDisplayName(data, "A"));
-  setText("controlNameB", getTeamDisplayName(data, "B"));
-  renderIcons(data);
+  setText("adminPlayerA1", getName(data, "playerA1", "Player A"));
+  setText("adminPlayerA2", a2);
+  setText("adminPlayerB1", getName(data, "playerB1", "Player B"));
+  setText("adminPlayerB2", b2);
+
+  el("adminA2Line")?.classList.toggle("hidden", matchType !== "double" || !a2);
+  el("adminB2Line")?.classList.toggle("hidden", matchType !== "double" || !b2);
+
+  setText("controlNameA", teamLabel(data, "A"));
+  setText("controlNameB", teamLabel(data, "B"));
+  updateServerButtonNames(data);
 
   setText("adminGame1A", safeScore(data?.scores?.game1?.A));
   setText("adminGame1B", safeScore(data?.scores?.game1?.B));
@@ -81,32 +121,21 @@ function render(data) {
   setText("adminGame3A", safeScore(data?.scores?.game3?.A));
   setText("adminGame3B", safeScore(data?.scores?.game3?.B));
 
-  const status = calculateStatus(data);
-  setText("adminStatus", status);
+  setText("adminStatus", calculateStatus(data));
   setText("adminCurrentGame", data.currentGame || 1);
-  setText("adminServer", data.server === "B" ? "Team B" : "Team A");
-
-  el("adminRowA").classList.toggle("serving", data.server === "A");
-  el("adminRowB").classList.toggle("serving", data.server === "B");
-  el("controlA").classList.toggle("serving", data.server === "A");
-  el("controlB").classList.toggle("serving", data.server === "B");
-  el("serveToggleA").classList.toggle("on", data.server === "A");
-  el("serveToggleB").classList.toggle("on", data.server === "B");
-
-  const teamA = getTeamNames(data, "A");
-  const teamB = getTeamNames(data, "B");
-  const matchType = data.matchType || (teamA.p2 || teamB.p2 ? "double" : "single");
+  setText("adminServer", serverLabel(data));
 
   setValue("inputTournament", data.tournament || "GASTON SCOREBOARD");
   setValue("inputRound", data.round || "");
   setValue("inputMatchType", matchType);
-  setValue("inputIconA", getTeamIcon(data, "A"));
-  setValue("inputIconB", getTeamIcon(data, "B"));
-  setValue("inputPlayerA1", teamA.p1);
-  setValue("inputPlayerA2", teamA.p2);
-  setValue("inputPlayerB1", teamB.p1);
-  setValue("inputPlayerB2", teamB.p2);
-  toggleDoubleFields();
+  setValue("inputPlayerA1", getName(data, "playerA1", "Player A"));
+  setValue("inputPlayerA2", a2);
+  setValue("inputPlayerB1", getName(data, "playerB1", "Player B"));
+  setValue("inputPlayerB2", b2);
+
+  showDoubleFields(matchType);
+  markServer(data);
+  updateTimer();
 }
 
 async function refreshCurrentData() {
@@ -124,22 +153,26 @@ async function updateScore(player, delta) {
   const current = player === "A" ? A : B;
   const nextScore = Math.max(0, current + delta);
 
+  const nextScoresForGame = {
+    ...(data.scores?.[gameKey] || { A: 0, B: 0 }),
+    [player]: nextScore
+  };
+
+  const nextData = {
+    ...data,
+    scores: {
+      ...(data.scores || {}),
+      [gameKey]: nextScoresForGame
+    },
+    matchStatus: "live"
+  };
+
   await update(ref(db, `${courtPath(courtNumber)}/scores/${gameKey}`), {
     [player]: nextScore
   });
 
   await update(courtRef, {
-    server: player,
-    status: calculateStatus({
-      ...data,
-      scores: {
-        ...data.scores,
-        [gameKey]: {
-          ...data.scores[gameKey],
-          [player]: nextScore
-        }
-      }
-    }),
+    status: calculateStatus(nextData),
     matchStatus: "live"
   });
 }
@@ -152,11 +185,11 @@ document.querySelectorAll("[data-action]").forEach(button => {
   });
 });
 
-document.querySelectorAll(".serve-btn").forEach(button => {
+document.querySelectorAll(".server-person-btn").forEach(button => {
   button.addEventListener("click", async () => {
     if (!currentData) return;
     saveHistory();
-    await update(courtRef, { server: button.dataset.player });
+    await update(courtRef, { server: button.dataset.server });
   });
 });
 
@@ -166,7 +199,7 @@ el("undoBtn").addEventListener("click", async () => {
     alert("Belum ada riwayat untuk Undo.");
     return;
   }
-  await update(courtRef, last);
+  await set(courtRef, last);
 });
 
 el("resetRallyBtn").addEventListener("click", async () => {
@@ -200,38 +233,8 @@ el("finishBtn").addEventListener("click", async () => {
   saveHistory();
   await update(courtRef, {
     status: "Finished",
-    matchStatus: "finished"
-  });
-});
-
-el("swapBtn").addEventListener("click", async () => {
-  const data = await refreshCurrentData();
-  if (!data) return;
-  saveHistory();
-
-  const swappedScores = {};
-  ["game1", "game2", "game3"].forEach(game => {
-    swappedScores[game] = {
-      A: safeScore(data?.scores?.[game]?.B),
-      B: safeScore(data?.scores?.[game]?.A)
-    };
-  });
-
-  const teamA = getTeamNames(data, "A");
-  const teamB = getTeamNames(data, "B");
-
-  await update(courtRef, {
-    playerA: getTeamDisplayName(data, "B"),
-    playerB: getTeamDisplayName(data, "A"),
-    playerA1: teamB.p1,
-    playerA2: teamB.p2 || "",
-    playerB1: teamA.p1,
-    playerB2: teamA.p2 || "",
-    teamIconA: getTeamIcon(data, "B"),
-    teamIconB: getTeamIcon(data, "A"),
-    matchType: data.matchType || (teamA.p2 || teamB.p2 ? "double" : "single"),
-    server: data.server === "A" ? "B" : "A",
-    scores: swappedScores
+    matchStatus: "finished",
+    matchEndAt: Date.now()
   });
 });
 
@@ -245,14 +248,13 @@ el("fullscreenBtn")?.addEventListener("click", () => {
   else document.exitFullscreen();
 });
 
-el("homeBtn")?.addEventListener("click", () => {
-  window.location.href = "index.html";
+el("inputMatchType").addEventListener("change", event => {
+  showDoubleFields(event.target.value);
 });
 
-el("inputMatchType")?.addEventListener("change", toggleDoubleFields);
-
 el("saveMatchInfo").addEventListener("click", async () => {
-  saveHistory();
+  const data = await refreshCurrentData();
+  if (data) saveHistory();
 
   const matchType = el("inputMatchType").value;
   const playerA1 = el("inputPlayerA1").value.trim() || "Player A";
@@ -263,20 +265,25 @@ el("saveMatchInfo").addEventListener("click", async () => {
   await update(courtRef, {
     tournament: el("inputTournament").value.trim() || "GASTON SCOREBOARD",
     round: el("inputRound").value.trim() || "-",
+    court: `Court ${courtNumber}`,
     matchType,
-    teamIconA: el("inputIconA").value.trim() || "🇮🇩",
-    teamIconB: el("inputIconB").value.trim() || "✤",
     playerA1,
     playerA2,
     playerB1,
     playerB2,
     playerA: playerA2 ? `${playerA1} / ${playerA2}` : playerA1,
-    playerB: playerB2 ? `${playerB1} / ${playerB2}` : playerB1
+    playerB: playerB2 ? `${playerB1} / ${playerB2}` : playerB1,
+    server: matchType === "double" ? "A1" : "A1",
+    matchStartAt: Date.now(),
+    matchEndAt: null,
+    status: "Live",
+    matchStatus: "live"
   });
-  alert("Match info berhasil disimpan.");
+
+  alert("Match info tersimpan. Timer pertandingan dimulai dari 00:00:00.");
 });
 
 onValue(courtRef, snapshot => render(snapshot.val()));
 
-setInterval(() => updateClock(el("adminTimer")), 1000);
-updateClock(el("adminTimer"));
+setInterval(updateTimer, 1000);
+showDoubleFields("single");

@@ -36,67 +36,69 @@ export function calculateStatus(data) {
   return data.status || "Live";
 }
 
-export function updateClock(el) {
-  if (!el) return;
-  const now = new Date();
-  const pad = n => String(n).padStart(2, "0");
-  el.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+export function pad2(n) {
+  return String(Math.max(0, Math.floor(n))).padStart(2, "0");
 }
 
-export function escapeHTML(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+export function formatDurationFromSeconds(totalSeconds) {
+  const seconds = Math.max(0, Math.floor(totalSeconds || 0));
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return `${pad2(h)}:${pad2(m)}:${pad2(s)}`;
 }
 
-export function getTeamIcon(data, side) {
-  const fallback = side === "A" ? "🇮🇩" : "✤";
-  return (data?.[`teamIcon${side}`] || fallback).trim();
+export function getMatchDurationText(data) {
+  if (!data?.matchStartAt) return "00:00:00";
+  const start = Number(data.matchStartAt);
+  const end = data.matchEndAt ? Number(data.matchEndAt) : Date.now();
+  return formatDurationFromSeconds((end - start) / 1000);
 }
 
-export function getTeamNames(data, side) {
-  const legacy = data?.[`player${side}`] || (side === "A" ? "Player A" : "Player B");
-  const p1 = data?.[`player${side}1`] || legacy;
-  const p2 = data?.[`player${side}2`] || "";
-  const matchType = data?.matchType || (p2 ? "double" : "single");
-  return {
-    p1: p1 || (side === "A" ? "Player A" : "Player B"),
-    p2: matchType === "double" ? p2 : "",
-    matchType
+export function getName(data, key, fallback = "") {
+  if (data?.[key]) return String(data[key]).trim();
+
+  // Backward compatibility with old data.
+  if (key === "playerA1" && data?.playerA) return String(data.playerA).trim();
+  if (key === "playerB1" && data?.playerB) return String(data.playerB).trim();
+
+  return fallback;
+}
+
+export function getMatchType(data) {
+  if (data?.matchType === "double") return "double";
+  if (getName(data, "playerA2") || getName(data, "playerB2")) return "double";
+  return "single";
+}
+
+export function normalizeServer(data) {
+  const server = data?.server || "A1";
+  if (["A1", "A2", "B1", "B2"].includes(server)) return server;
+
+  // Backward compatibility with old server values: A/B.
+  if (server === "A") return "A1";
+  if (server === "B") return "B1";
+
+  return "A1";
+}
+
+export function serverTeam(server) {
+  return String(server || "A1").startsWith("B") ? "B" : "A";
+}
+
+export function teamLabel(data, team) {
+  const one = getName(data, `player${team}1`, `Player ${team}`);
+  const two = getName(data, `player${team}2`, "");
+  return two ? `${one} / ${two}` : one;
+}
+
+export function serverLabel(data) {
+  const server = normalizeServer(data);
+  const nameMap = {
+    A1: getName(data, "playerA1", "Player A"),
+    A2: getName(data, "playerA2", "Player A2"),
+    B1: getName(data, "playerB1", "Player B"),
+    B2: getName(data, "playerB2", "Player B2")
   };
-}
-
-export function getTeamDisplayName(data, side) {
-  const { p1, p2 } = getTeamNames(data, side);
-  return p2 ? `${p1} / ${p2}` : p1;
-}
-
-export function renderTeamName(el, data, side) {
-  if (!el) return;
-  const { p1, p2 } = getTeamNames(data, side);
-  el.innerHTML = p2
-    ? `<span class="team-primary">${escapeHTML(p1)}</span><span class="team-secondary">${escapeHTML(p2)}</span>`
-    : `<span class="team-primary">${escapeHTML(p1)}</span>`;
-}
-
-export function applyTeamIcon(el, iconValue, fallback = "🏸") {
-  if (!el) return;
-  const icon = String(iconValue || fallback).trim();
-  el.classList.add("team-icon-rendered");
-  el.classList.remove("has-image");
-  el.style.backgroundImage = "";
-  el.textContent = "";
-
-  const looksLikeImage = /^(https?:|data:image|\.\/|\/|assets\/|images\/|img\/)/i.test(icon)
-    || /\.(png|jpe?g|gif|webp|svg)$/i.test(icon);
-
-  if (looksLikeImage) {
-    el.classList.add("has-image");
-    el.style.backgroundImage = `url("${icon.replaceAll('"', '%22')}")`;
-  } else {
-    el.textContent = icon;
-  }
+  return nameMap[server] || server;
 }

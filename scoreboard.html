@@ -7,20 +7,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="stylesheet" href="css/style.css?v=4.0.0" />
 </head>
 <body class="page-shell scoreboard-page">
   <header class="topbar">
     <div class="brand">
-      <div class="brand-logo">🏸</div>
+      <div class="brand-logo shuttle-mark"></div>
       <div>
         <h1 id="tournamentTitle">GASTON SCOREBOARD</h1>
         <p><span id="roundLabel">Final</span> • <span id="courtLabel">Court 1</span> • <span class="green">Live</span></p>
       </div>
     </div>
     <div class="top-actions">
-      <a class="home-btn" href="index.html">← Menu Utama</a>
       <span class="live-pill"><span></span> LIVE</span>
+      <a class="home-btn" href="index.html">⌂ Menu Utama</a>
       <button class="icon-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
     </div>
   </header>
@@ -29,19 +29,15 @@
     <section class="score-table panel">
       <div class="score-head">
         <span></span>
-        <span></span>
         <span>Game 1</span>
         <span>Game 2</span>
         <span class="green">Game 3</span>
       </div>
 
       <div id="rowA" class="score-row">
-        <div class="flag-badge team-icon-rendered" id="iconA">🇮🇩</div>
-        <div class="player-name">
-          <div id="playerA" class="team-name-display">
-            <span class="team-primary">Player A</span>
-          </div>
-          <small class="serve-badge" id="serveA"><span class="shuttle-only"></span></small>
+        <div class="player-block">
+          <div id="playerA1Line" class="player-line"><span id="playerA1">Player A</span></div>
+          <div id="playerA2Line" class="player-line player-second"><span id="playerA2"></span></div>
         </div>
         <div class="score-cell" id="game1A">0</div>
         <div class="score-cell" id="game2A">0</div>
@@ -49,12 +45,9 @@
       </div>
 
       <div id="rowB" class="score-row">
-        <div class="flag-badge team-icon-rendered" id="iconB">✤</div>
-        <div class="player-name">
-          <div id="playerB" class="team-name-display">
-            <span class="team-primary">Player B</span>
-          </div>
-          <small class="serve-badge" id="serveB"><span class="shuttle-only"></span></small>
+        <div class="player-block">
+          <div id="playerB1Line" class="player-line"><span id="playerB1">Player B</span></div>
+          <div id="playerB2Line" class="player-line player-second"><span id="playerB2"></span></div>
         </div>
         <div class="score-cell" id="game1B">0</div>
         <div class="score-cell" id="game2B">0</div>
@@ -71,14 +64,18 @@
         <div class="round-icon blue">▮</div>
         <div><small>Current Game</small><b id="currentGameText">1</b></div>
       </div>
+      <div class="info-card">
+        <div class="round-icon purple">◷</div>
+        <div><small>Match Time</small><b id="matchTimerText">00:00:00</b></div>
+      </div>
     </section>
   </main>
 
   <footer class="score-footer">
     <span>📡 Live scoring provided by Gaston Scoreboard</span>
-    <span id="clock">00:00:00</span>
+    <span id="footerTimer">Match Time 00:00:00</span>
   </footer>
 
-  <script type="module" src="js/scoreboard.js?v=3"></script>
+  <script type="module" src="js/scoreboard.js?v=4.0.0"></script>
 </body>
 </html>

@@ -1,26 +1,33 @@
-import { db, ref, onValue } from "./firebase-config.js?v=3";
+import { db, ref, onValue } from "./firebase-config.js";
 import {
   getCourtNumber,
   courtPath,
   safeScore,
-  updateClock,
   calculateStatus,
-  renderTeamName,
-  applyTeamIcon,
-  getTeamIcon
-} from "./utils.js?v=3";
+  getName,
+  getMatchType,
+  normalizeServer,
+  serverTeam,
+  getMatchDurationText
+} from "./utils.js";
 
 const courtNumber = getCourtNumber();
 const courtRef = ref(db, courtPath(courtNumber));
+
+let currentData = null;
 
 const ids = {
   tournamentTitle: document.getElementById("tournamentTitle"),
   roundLabel: document.getElementById("roundLabel"),
   courtLabel: document.getElementById("courtLabel"),
-  playerA: document.getElementById("playerA"),
-  playerB: document.getElementById("playerB"),
-  iconA: document.getElementById("iconA"),
-  iconB: document.getElementById("iconB"),
+  playerA1: document.getElementById("playerA1"),
+  playerA2: document.getElementById("playerA2"),
+  playerB1: document.getElementById("playerB1"),
+  playerB2: document.getElementById("playerB2"),
+  playerA1Line: document.getElementById("playerA1Line"),
+  playerA2Line: document.getElementById("playerA2Line"),
+  playerB1Line: document.getElementById("playerB1Line"),
+  playerB2Line: document.getElementById("playerB2Line"),
   game1A: document.getElementById("game1A"),
   game1B: document.getElementById("game1B"),
   game2A: document.getElementById("game2A"),
@@ -29,25 +36,55 @@ const ids = {
   game3B: document.getElementById("game3B"),
   statusText: document.getElementById("statusText"),
   currentGameText: document.getElementById("currentGameText"),
+  matchTimerText: document.getElementById("matchTimerText"),
+  footerTimer: document.getElementById("footerTimer"),
   rowA: document.getElementById("rowA"),
-  rowB: document.getElementById("rowB"),
-  clock: document.getElementById("clock")
+  rowB: document.getElementById("rowB")
 };
 
 function setText(el, value) {
   if (el) el.textContent = value;
 }
 
+function markServer(server) {
+  ["A1", "A2", "B1", "B2"].forEach(key => {
+    ids[`player${key}Line`]?.classList.toggle("server-person", key === server);
+  });
+  ids.rowA.classList.toggle("serving-team", serverTeam(server) === "A");
+  ids.rowB.classList.toggle("serving-team", serverTeam(server) === "B");
+}
+
+function renderPlayerNames(data) {
+  const matchType = getMatchType(data);
+
+  setText(ids.playerA1, getName(data, "playerA1", "Player A"));
+  setText(ids.playerB1, getName(data, "playerB1", "Player B"));
+
+  const a2 = getName(data, "playerA2", "");
+  const b2 = getName(data, "playerB2", "");
+
+  setText(ids.playerA2, a2);
+  setText(ids.playerB2, b2);
+
+  ids.playerA2Line.classList.toggle("hidden", matchType !== "double" || !a2);
+  ids.playerB2Line.classList.toggle("hidden", matchType !== "double" || !b2);
+}
+
+function renderTimer() {
+  const text = getMatchDurationText(currentData);
+  setText(ids.matchTimerText, text);
+  setText(ids.footerTimer, `Match Time ${text}`);
+}
+
 function renderScoreboard(data) {
   if (!data) return;
+  currentData = data;
 
   setText(ids.tournamentTitle, data.tournament || "GASTON SCOREBOARD");
   setText(ids.roundLabel, data.round || "-");
   setText(ids.courtLabel, data.court || `Court ${courtNumber}`);
-  renderTeamName(ids.playerA, data, "A");
-  renderTeamName(ids.playerB, data, "B");
-  applyTeamIcon(ids.iconA, getTeamIcon(data, "A"), "🇮🇩");
-  applyTeamIcon(ids.iconB, getTeamIcon(data, "B"), "✤");
+
+  renderPlayerNames(data);
 
   setText(ids.game1A, safeScore(data?.scores?.game1?.A));
   setText(ids.game1B, safeScore(data?.scores?.game1?.B));
@@ -59,8 +96,8 @@ function renderScoreboard(data) {
   setText(ids.statusText, calculateStatus(data));
   setText(ids.currentGameText, data.currentGame || 1);
 
-  ids.rowA.classList.toggle("serving", data.server === "A");
-  ids.rowB.classList.toggle("serving", data.server === "B");
+  markServer(normalizeServer(data));
+  renderTimer();
 }
 
 onValue(courtRef, snapshot => renderScoreboard(snapshot.val()));
@@ -70,5 +107,4 @@ document.getElementById("fullscreenBtn")?.addEventListener("click", () => {
   else document.exitFullscreen();
 });
 
-setInterval(() => updateClock(ids.clock), 1000);
-updateClock(ids.clock);
+setInterval(renderTimer, 1000);
