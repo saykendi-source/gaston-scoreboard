@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaston Scoreboard - Scoreboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="page-shell scoreboard-page">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">🏸</div>
+      <div>
+        <h1 id="tournamentTitle">GASTON SCOREBOARD</h1>
+        <p><span id="roundLabel">Final</span> • <span id="courtLabel">Court 1</span> • <span class="green">Live</span></p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="live-pill"><span></span> LIVE</span>
+      <button class="icon-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
+      <a class="icon-btn" href="index.html" title="Home">☰</a>
+    </div>
+  </header>
+
+  <main class="scoreboard-wrap">
+    <section class="score-table panel">
+      <div class="score-head">
+        <span></span>
+        <span></span>
+        <span>Game 1</span>
+        <span>Game 2</span>
+        <span class="green">Game 3</span>
+      </div>
+
+      <div id="rowA" class="score-row">
+        <div class="flag-badge indonesia"></div>
+        <div class="player-name">
+          <span id="playerA">Player A</span>
+          <small class="serve-badge" id="serveA">🏸</small>
+        </div>
+        <div class="score-cell" id="game1A">0</div>
+        <div class="score-cell" id="game2A">0</div>
+        <div class="score-cell active" id="game3A">0</div>
+      </div>
+
+      <div id="rowB" class="score-row">
+        <div class="flag-badge hongkong">✤</div>
+        <div class="player-name">
+          <span id="playerB">Player B</span>
+          <small class="serve-badge" id="serveB">🏸</small>
+        </div>
+        <div class="score-cell" id="game1B">0</div>
+        <div class="score-cell" id="game2B">0</div>
+        <div class="score-cell active" id="game3B">0</div>
+      </div>
+    </section>
+
+    <section class="score-info">
+      <div class="info-card">
+        <div class="round-icon yellow">◎</div>
+        <div><small>Status</small><b id="statusText">Live</b></div>
+      </div>
+      <div class="info-card">
+        <div class="round-icon blue">▮</div>
+        <div><small>Current Game</small><b id="currentGameText">1</b></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="score-footer">
+    <span>📡 Live scoring provided by Gaston Scoreboard</span>
+    <span id="clock">00:00:00</span>
+  </footer>
+
+  <script type="module" src="js/scoreboard.js"></script>
+</body>
+</html>

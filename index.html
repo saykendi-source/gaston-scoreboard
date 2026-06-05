@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaston Scoreboard - Select View</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="page-shell landing-page">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">🏸</div>
+      <div>
+        <h1>GASTON SCOREBOARD</h1>
+        <p>Select Court & View</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="live-pill"><span></span> LIVE</span>
+      <button class="icon-btn" title="Broadcast">◉</button>
+      <button class="icon-btn" title="Help">?</button>
+      <button class="icon-btn" title="Settings">⚙</button>
+    </div>
+  </header>
+
+  <main class="landing-layout">
+    <section class="panel selection-panel">
+      <div class="section-title"><span>1</span> Choose Court / Lapangan</div>
+      <div id="courtGrid" class="court-grid"></div>
+
+      <div class="divider"></div>
+
+      <div class="section-title"><span>2</span> Choose View</div>
+      <div class="view-grid">
+        <button class="view-card selected" data-view="scoreboard">
+          <div class="view-card-head">
+            <div class="view-icon">▮▮▮</div>
+            <div>
+              <h2>Scoreboard</h2>
+              <p>Public match scoreboard view</p>
+            </div>
+            <span class="check">✓</span>
+          </div>
+          <div class="mini-preview scoreboard-preview">
+            <div class="mini-header">
+              <b>GASTON SCOREBOARD</b>
+              <span>● LIVE</span>
+            </div>
+            <div class="mini-board">
+              <div class="mini-row">
+                <span>🇮🇩 DWI WARDOYO</span>
+                <b>17</b><b>27</b><strong>19</strong>
+              </div>
+              <div class="mini-row active">
+                <span>🏸 NG K.L.A.</span>
+                <b>21</b><b>25</b><strong>17</strong>
+              </div>
+            </div>
+            <div class="mini-info">
+              <span>GAME POINT</span>
+              <span>GAME 3</span>
+            </div>
+          </div>
+        </button>
+
+        <button class="view-card" data-view="admin">
+          <div class="view-card-head">
+            <div class="view-icon">👥</div>
+            <div>
+              <h2>Admin Panel</h2>
+              <p>Tournament control & management</p>
+            </div>
+            <span class="check">✓</span>
+          </div>
+          <div class="mini-preview admin-preview">
+            <div class="mini-header">
+              <b>ADMIN CONTROL</b>
+              <span>● LIVE</span>
+            </div>
+            <div class="mini-admin">
+              <div class="mini-team">
+                <span>🇮🇩 DWI</span>
+                <button>+1</button>
+                <button>-1</button>
+              </div>
+              <div class="mini-team active">
+                <span>🏸 NG</span>
+                <button>+1</button>
+                <button>-1</button>
+              </div>
+            </div>
+            <div class="mini-actions">
+              <span>Undo</span><span>Next</span><span>Finish</span>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="landing-buttons">
+        <button id="openView" class="primary-btn">🚀 Open View</button>
+        <button id="resetSelection" class="secondary-btn">↺ Reset Selection</button>
+      </div>
+    </section>
+
+    <aside class="panel status-panel">
+      <h3>Event Status</h3>
+      <div class="status-item">
+        <span>📅</span>
+        <div><small>Today's Event</small><b id="todayEvent">Final Match Day</b></div>
+      </div>
+      <div class="status-item">
+        <span>🏟</span>
+        <div><small>Active Courts</small><b><em id="activeCourts">6</em> of 6</b></div>
+      </div>
+      <div class="status-item">
+        <span>📡</span>
+        <div><small>Live Matches</small><b id="liveMatches">0</b></div>
+      </div>
+      <div class="status-item">
+        <span>👥</span>
+        <div><small>Total Matches</small><b id="totalMatches">0</b></div>
+      </div>
+      <div class="status-item">
+        <span>🕒</span>
+        <div><small>Event Time</small><b id="eventTime">08:00 - 22:00</b></div>
+      </div>
+      <div class="enjoy-card">🏸 <div><b>Enjoy the game!</b><p>Let's play fair & have fun.</p></div></div>
+    </aside>
+  </main>
+
+  <footer class="footer-strip">
+    <span>ⓘ Use this page to open the correct court display or admin control panel.</span>
+    <span>🏸 Thank you for supporting <b>GASTON SCOREBOARD</b></span>
+  </footer>
+
+  <script type="module" src="js/landing.js"></script>
+</body>
+</html>
