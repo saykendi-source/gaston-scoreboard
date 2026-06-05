@@ -1,2 +1,2 @@
-Gaston Scoreboard v4.0.0
-Changes: no logo/flag input-display, match duration timer, per-player server highlight, pure shuttlecock icon, main menu button.
+Gaston Scoreboard v5.0.0
+Changes: added Pertandingan Baru button to reset score, current game, server, status, match timer, and player names for a new match on the same court.

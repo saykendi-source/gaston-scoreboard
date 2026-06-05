@@ -228,6 +228,51 @@ el("nextGameBtn").addEventListener("click", async () => {
   });
 });
 
+
+el("newMatchBtn").addEventListener("click", async () => {
+  const data = await refreshCurrentData();
+  if (data) saveHistory();
+
+  const matchType = el("inputMatchType").value;
+  const playerA1 = el("inputPlayerA1").value.trim() || "Player A";
+  const playerA2 = matchType === "double" ? el("inputPlayerA2").value.trim() : "";
+  const playerB1 = el("inputPlayerB1").value.trim() || "Player B";
+  const playerB2 = matchType === "double" ? el("inputPlayerB2").value.trim() : "";
+
+  const ok = confirm(
+    "Mulai pertandingan baru di court ini?\n\n" +
+    "Skor lama akan direset ke 0-0, game kembali ke Game 1, dan timer dimulai dari 00:00:00."
+  );
+
+  if (!ok) return;
+
+  await update(courtRef, {
+    tournament: el("inputTournament").value.trim() || "GASTON SCOREBOARD",
+    round: el("inputRound").value.trim() || "-",
+    court: `Court ${courtNumber}`,
+    matchType,
+    playerA1,
+    playerA2,
+    playerB1,
+    playerB2,
+    playerA: playerA2 ? `${playerA1} / ${playerA2}` : playerA1,
+    playerB: playerB2 ? `${playerB1} / ${playerB2}` : playerB1,
+    currentGame: 1,
+    server: "A1",
+    status: "Live",
+    matchStatus: "live",
+    matchStartAt: Date.now(),
+    matchEndAt: null,
+    scores: {
+      game1: { A: 0, B: 0 },
+      game2: { A: 0, B: 0 },
+      game3: { A: 0, B: 0 }
+    }
+  });
+
+  alert("Pertandingan baru dimulai. Scoreboard LCD otomatis mengikuti data baru.");
+});
+
 el("finishBtn").addEventListener("click", async () => {
   if (!confirm("Selesaikan pertandingan ini?")) return;
   saveHistory();

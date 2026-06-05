@@ -901,7 +901,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .action-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 16px;
 }
 
@@ -926,6 +926,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .action-grid .danger { color: var(--red); }
+.action-grid .success { color: var(--green); }
 
 .info-grid {
   display: grid;
