@@ -1,4 +1,4 @@
-import { db, ref, onValue } from "./firebase-config.js";
+import { db, ref, onValue } from "./firebase-config.js?v=3";
 
 const courts = [1, 2, 3, 4, 5, 6];
 const courtGrid = document.getElementById("courtGrid");

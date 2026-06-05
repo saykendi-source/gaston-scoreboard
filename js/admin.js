@@ -1,5 +1,17 @@
-import { db, ref, update, onValue, get } from "./firebase-config.js";
-import { getCourtNumber, courtPath, safeScore, getCurrentGameKey, calculateStatus, updateClock } from "./utils.js";
+import { db, ref, update, onValue, get } from "./firebase-config.js?v=3";
+import {
+  getCourtNumber,
+  courtPath,
+  safeScore,
+  getCurrentGameKey,
+  calculateStatus,
+  updateClock,
+  renderTeamName,
+  applyTeamIcon,
+  getTeamIcon,
+  getTeamDisplayName,
+  getTeamNames
+} from "./utils.js?v=3";
 
 const courtNumber = getCourtNumber();
 const courtRef = ref(db, courtPath(courtNumber));
@@ -34,6 +46,20 @@ function saveHistory() {
   if (historyStack.length > 25) historyStack.shift();
 }
 
+function toggleDoubleFields() {
+  const isDouble = el("inputMatchType")?.value === "double";
+  document.querySelectorAll(".double-only").forEach(field => {
+    field.classList.toggle("double-hidden", !isDouble);
+  });
+}
+
+function renderIcons(data) {
+  applyTeamIcon(el("adminIconA"), getTeamIcon(data, "A"), "🇮🇩");
+  applyTeamIcon(el("adminIconB"), getTeamIcon(data, "B"), "✤");
+  applyTeamIcon(el("controlIconA"), getTeamIcon(data, "A"), "🇮🇩");
+  applyTeamIcon(el("controlIconB"), getTeamIcon(data, "B"), "✤");
+}
+
 function render(data) {
   if (!data) return;
   currentData = data;
@@ -42,10 +68,11 @@ function render(data) {
   setText("adminRound", data.round || "-");
   setText("adminCourt", data.court || `Court ${courtNumber}`);
 
-  setText("adminPlayerA", data.playerA || "Player A");
-  setText("adminPlayerB", data.playerB || "Player B");
-  setText("controlNameA", data.playerA || "Player A");
-  setText("controlNameB", data.playerB || "Player B");
+  renderTeamName(el("adminPlayerA"), data, "A");
+  renderTeamName(el("adminPlayerB"), data, "B");
+  setText("controlNameA", getTeamDisplayName(data, "A"));
+  setText("controlNameB", getTeamDisplayName(data, "B"));
+  renderIcons(data);
 
   setText("adminGame1A", safeScore(data?.scores?.game1?.A));
   setText("adminGame1B", safeScore(data?.scores?.game1?.B));
@@ -66,10 +93,20 @@ function render(data) {
   el("serveToggleA").classList.toggle("on", data.server === "A");
   el("serveToggleB").classList.toggle("on", data.server === "B");
 
+  const teamA = getTeamNames(data, "A");
+  const teamB = getTeamNames(data, "B");
+  const matchType = data.matchType || (teamA.p2 || teamB.p2 ? "double" : "single");
+
   setValue("inputTournament", data.tournament || "GASTON SCOREBOARD");
   setValue("inputRound", data.round || "");
-  setValue("inputPlayerA", data.playerA || "");
-  setValue("inputPlayerB", data.playerB || "");
+  setValue("inputMatchType", matchType);
+  setValue("inputIconA", getTeamIcon(data, "A"));
+  setValue("inputIconB", getTeamIcon(data, "B"));
+  setValue("inputPlayerA1", teamA.p1);
+  setValue("inputPlayerA2", teamA.p2);
+  setValue("inputPlayerB1", teamB.p1);
+  setValue("inputPlayerB2", teamB.p2);
+  toggleDoubleFields();
 }
 
 async function refreshCurrentData() {
@@ -180,9 +217,19 @@ el("swapBtn").addEventListener("click", async () => {
     };
   });
 
+  const teamA = getTeamNames(data, "A");
+  const teamB = getTeamNames(data, "B");
+
   await update(courtRef, {
-    playerA: data.playerB || "Player B",
-    playerB: data.playerA || "Player A",
+    playerA: getTeamDisplayName(data, "B"),
+    playerB: getTeamDisplayName(data, "A"),
+    playerA1: teamB.p1,
+    playerA2: teamB.p2 || "",
+    playerB1: teamA.p1,
+    playerB2: teamA.p2 || "",
+    teamIconA: getTeamIcon(data, "B"),
+    teamIconB: getTeamIcon(data, "A"),
+    matchType: data.matchType || (teamA.p2 || teamB.p2 ? "double" : "single"),
     server: data.server === "A" ? "B" : "A",
     scores: swappedScores
   });
@@ -198,13 +245,33 @@ el("fullscreenBtn")?.addEventListener("click", () => {
   else document.exitFullscreen();
 });
 
+el("homeBtn")?.addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+
+el("inputMatchType")?.addEventListener("change", toggleDoubleFields);
+
 el("saveMatchInfo").addEventListener("click", async () => {
   saveHistory();
+
+  const matchType = el("inputMatchType").value;
+  const playerA1 = el("inputPlayerA1").value.trim() || "Player A";
+  const playerA2 = matchType === "double" ? el("inputPlayerA2").value.trim() : "";
+  const playerB1 = el("inputPlayerB1").value.trim() || "Player B";
+  const playerB2 = matchType === "double" ? el("inputPlayerB2").value.trim() : "";
+
   await update(courtRef, {
     tournament: el("inputTournament").value.trim() || "GASTON SCOREBOARD",
     round: el("inputRound").value.trim() || "-",
-    playerA: el("inputPlayerA").value.trim() || "Player A",
-    playerB: el("inputPlayerB").value.trim() || "Player B"
+    matchType,
+    teamIconA: el("inputIconA").value.trim() || "🇮🇩",
+    teamIconB: el("inputIconB").value.trim() || "✤",
+    playerA1,
+    playerA2,
+    playerB1,
+    playerB2,
+    playerA: playerA2 ? `${playerA1} / ${playerA2}` : playerA1,
+    playerB: playerB2 ? `${playerB1} / ${playerB2}` : playerB1
   });
   alert("Match info berhasil disimpan.");
 });

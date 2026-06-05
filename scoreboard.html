@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 <body class="page-shell scoreboard-page">
   <header class="topbar">
@@ -19,9 +19,9 @@
       </div>
     </div>
     <div class="top-actions">
+      <a class="home-btn" href="index.html">← Menu Utama</a>
       <span class="live-pill"><span></span> LIVE</span>
       <button class="icon-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
-      <a class="icon-btn" href="index.html" title="Home">☰</a>
     </div>
   </header>
 
@@ -36,10 +36,12 @@
       </div>
 
       <div id="rowA" class="score-row">
-        <div class="flag-badge indonesia"></div>
+        <div class="flag-badge team-icon-rendered" id="iconA">🇮🇩</div>
         <div class="player-name">
-          <span id="playerA">Player A</span>
-          <small class="serve-badge" id="serveA">🏸</small>
+          <div id="playerA" class="team-name-display">
+            <span class="team-primary">Player A</span>
+          </div>
+          <small class="serve-badge" id="serveA"><span class="shuttle-only"></span></small>
         </div>
         <div class="score-cell" id="game1A">0</div>
         <div class="score-cell" id="game2A">0</div>
@@ -47,10 +49,12 @@
       </div>
 
       <div id="rowB" class="score-row">
-        <div class="flag-badge hongkong">✤</div>
+        <div class="flag-badge team-icon-rendered" id="iconB">✤</div>
         <div class="player-name">
-          <span id="playerB">Player B</span>
-          <small class="serve-badge" id="serveB">🏸</small>
+          <div id="playerB" class="team-name-display">
+            <span class="team-primary">Player B</span>
+          </div>
+          <small class="serve-badge" id="serveB"><span class="shuttle-only"></span></small>
         </div>
         <div class="score-cell" id="game1B">0</div>
         <div class="score-cell" id="game2B">0</div>
@@ -75,6 +79,6 @@
     <span id="clock">00:00:00</span>
   </footer>
 
-  <script type="module" src="js/scoreboard.js"></script>
+  <script type="module" src="js/scoreboard.js?v=3"></script>
 </body>
 </html>

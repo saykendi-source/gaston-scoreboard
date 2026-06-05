@@ -1,5 +1,14 @@
-import { db, ref, onValue } from "./firebase-config.js";
-import { getCourtNumber, courtPath, safeScore, updateClock, calculateStatus } from "./utils.js";
+import { db, ref, onValue } from "./firebase-config.js?v=3";
+import {
+  getCourtNumber,
+  courtPath,
+  safeScore,
+  updateClock,
+  calculateStatus,
+  renderTeamName,
+  applyTeamIcon,
+  getTeamIcon
+} from "./utils.js?v=3";
 
 const courtNumber = getCourtNumber();
 const courtRef = ref(db, courtPath(courtNumber));
@@ -10,6 +19,8 @@ const ids = {
   courtLabel: document.getElementById("courtLabel"),
   playerA: document.getElementById("playerA"),
   playerB: document.getElementById("playerB"),
+  iconA: document.getElementById("iconA"),
+  iconB: document.getElementById("iconB"),
   game1A: document.getElementById("game1A"),
   game1B: document.getElementById("game1B"),
   game2A: document.getElementById("game2A"),
@@ -33,8 +44,10 @@ function renderScoreboard(data) {
   setText(ids.tournamentTitle, data.tournament || "GASTON SCOREBOARD");
   setText(ids.roundLabel, data.round || "-");
   setText(ids.courtLabel, data.court || `Court ${courtNumber}`);
-  setText(ids.playerA, data.playerA || "Player A");
-  setText(ids.playerB, data.playerB || "Player B");
+  renderTeamName(ids.playerA, data, "A");
+  renderTeamName(ids.playerB, data, "B");
+  applyTeamIcon(ids.iconA, getTeamIcon(data, "A"), "🇮🇩");
+  applyTeamIcon(ids.iconB, getTeamIcon(data, "B"), "✤");
 
   setText(ids.game1A, safeScore(data?.scores?.game1?.A));
   setText(ids.game1B, safeScore(data?.scores?.game1?.B));
