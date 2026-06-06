@@ -2465,3 +2465,367 @@ button, a { -webkit-tap-highlight-color: transparent; }
     width: 100%;
   }
 }
+
+
+/* =========================
+   v22: Admin panel tidy layout for laptop and phone
+   ========================= */
+
+/* Desktop / laptop: clean two-column admin layout */
+.admin-page .admin-grid {
+  max-width: 1540px;
+  margin: 18px auto 0 !important;
+  display: grid !important;
+  grid-template-columns: minmax(340px, 430px) minmax(0, 1fr) !important;
+  gap: 18px !important;
+  align-items: start !important;
+}
+
+.admin-page .admin-grid .panel {
+  padding: 18px !important;
+  border-radius: 18px !important;
+}
+
+/* Match Info first, then Overview + Score Control on the right */
+.admin-page .match-form {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+}
+
+.admin-page .match-overview {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+}
+
+.admin-page .score-control {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+}
+
+.admin-page .match-actions {
+  grid-column: 1 / -1 !important;
+  grid-row: 3 !important;
+}
+
+.admin-page .status-info {
+  display: none !important;
+}
+
+/* Cleaner section title spacing */
+.admin-page .section-title {
+  font-size: 24px !important;
+  margin-bottom: 14px !important;
+}
+
+/* Match Info panel: more compact and readable */
+.admin-page .form-grid {
+  gap: 11px !important;
+}
+
+.admin-page .form-grid label {
+  font-size: 12px !important;
+  letter-spacing: .2px;
+}
+
+.admin-page .form-grid input,
+.admin-page .form-grid select {
+  height: 42px !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+}
+
+.admin-page .primary-btn.full {
+  min-height: 50px !important;
+  margin-top: 14px !important;
+  font-size: 16px !important;
+  padding: 0 18px !important;
+}
+
+.admin-page .form-note {
+  margin: 12px 0 0 !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+}
+
+/* Match Overview: reduce height but keep score readable */
+.admin-page .compact-head,
+.admin-page .compact-row {
+  grid-template-columns: minmax(190px, 1fr) 92px 92px 104px !important;
+}
+
+.admin-page .compact-head {
+  height: 34px !important;
+  font-size: 14px !important;
+}
+
+.admin-page .compact-row {
+  min-height: 82px !important;
+}
+
+.admin-page .compact-row strong {
+  min-height: 82px !important;
+}
+
+.admin-page .compact-player-line {
+  font-size: 24px !important;
+  line-height: 1.08 !important;
+}
+
+.admin-page .compact-names {
+  padding-left: 16px !important;
+}
+
+.admin-page .compact-row > span,
+.admin-page .compact-row > strong {
+  font-size: 36px !important;
+}
+
+/* Score Control: compact but comfortable */
+.admin-page .score-control {
+  padding: 16px !important;
+}
+
+.admin-page .control-cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
+
+.admin-page .control-card {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px !important;
+  padding: 14px !important;
+  border-radius: 16px !important;
+  align-items: stretch !important;
+}
+
+.admin-page .control-card h2 {
+  grid-column: 1 / -1 !important;
+  margin: 0 !important;
+  min-height: 40px;
+  font-size: 20px !important;
+  line-height: 1.15 !important;
+  display: flex;
+  align-items: center;
+  overflow-wrap: anywhere;
+}
+
+.admin-page .score-btn {
+  height: 56px !important;
+  margin: 0 !important;
+  border-radius: 12px !important;
+  font-size: 34px !important;
+}
+
+.admin-page .server-select {
+  grid-column: 1 / -1 !important;
+  margin-top: 2px !important;
+  padding-top: 10px !important;
+}
+
+.admin-page .server-select small {
+  margin-bottom: 7px !important;
+  font-size: 11px !important;
+}
+
+.admin-page .server-person-btn {
+  min-height: 38px !important;
+  margin-top: 7px !important;
+  padding: 6px 10px !important;
+  font-size: 12px !important;
+  border-radius: 10px !important;
+}
+
+/* Match Actions: neat text-only buttons */
+.admin-page .action-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+.admin-page .action-grid button,
+.admin-page .action-link {
+  min-height: 54px !important;
+  border-radius: 12px !important;
+  padding: 8px 10px !important;
+  font-size: 14px !important;
+  text-align: center;
+}
+
+.admin-page .action-grid button span,
+.admin-page .action-link span {
+  margin-top: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+}
+
+/* Phone layout */
+@media (max-width: 900px) {
+  .admin-page {
+    padding: 10px !important;
+  }
+
+  .admin-page .topbar {
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .admin-page .brand-logo {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .admin-page .brand h1 {
+    font-size: 24px !important;
+  }
+
+  .admin-page .brand p {
+    font-size: 12px !important;
+    margin-top: 5px !important;
+  }
+
+  .admin-page .top-actions {
+    display: none !important;
+  }
+
+  .admin-page .admin-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-top: 12px !important;
+  }
+
+  .admin-page .match-form,
+  .admin-page .match-overview,
+  .admin-page .score-control,
+  .admin-page .match-actions {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .admin-page .admin-grid .panel {
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  .admin-page .section-title {
+    font-size: 21px !important;
+    gap: 10px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .admin-page .section-title span {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 16px !important;
+  }
+
+  .admin-page .form-grid {
+    gap: 10px !important;
+  }
+
+  .admin-page .form-grid input,
+  .admin-page .form-grid select {
+    height: 40px !important;
+    font-size: 14px !important;
+  }
+
+  .admin-page .primary-btn.full {
+    min-height: 48px !important;
+    font-size: 14px !important;
+  }
+
+  .admin-page .compact-head,
+  .admin-page .compact-row {
+    grid-template-columns: minmax(110px, 1fr) 58px 58px 64px !important;
+  }
+
+  .admin-page .compact-head {
+    height: 30px !important;
+    font-size: 11px !important;
+  }
+
+  .admin-page .compact-row {
+    min-height: 68px !important;
+  }
+
+  .admin-page .compact-row strong {
+    min-height: 68px !important;
+  }
+
+  .admin-page .compact-names {
+    padding-left: 10px !important;
+  }
+
+  .admin-page .compact-player-line {
+    font-size: 18px !important;
+  }
+
+  .admin-page .compact-row > span,
+  .admin-page .compact-row > strong {
+    font-size: 28px !important;
+  }
+
+  /* On phone: each team card full width, +1 and -1 side by side */
+  .admin-page .control-cards {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .admin-page .control-card {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    padding: 12px !important;
+  }
+
+  .admin-page .control-card h2 {
+    font-size: 17px !important;
+    min-height: 30px !important;
+  }
+
+  .admin-page .score-btn {
+    height: 50px !important;
+    font-size: 30px !important;
+  }
+
+  .admin-page .server-person-btn {
+    min-height: 36px !important;
+    font-size: 11px !important;
+  }
+
+  .admin-page .action-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .admin-page .action-grid button,
+  .admin-page .action-link {
+    min-height: 48px !important;
+    font-size: 12px !important;
+  }
+
+  .admin-page .action-grid button span,
+  .admin-page .action-link span {
+    font-size: 12px !important;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 390px) {
+  .admin-page .compact-head,
+  .admin-page .compact-row {
+    grid-template-columns: minmax(92px, 1fr) 50px 50px 56px !important;
+  }
+
+  .admin-page .compact-player-line {
+    font-size: 16px !important;
+  }
+
+  .admin-page .compact-row > span,
+  .admin-page .compact-row > strong {
+    font-size: 25px !important;
+  }
+
+  .admin-page .score-btn {
+    height: 46px !important;
+    font-size: 27px !important;
+  }
+}

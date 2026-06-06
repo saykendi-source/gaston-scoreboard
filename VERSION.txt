@@ -1,2 +1,2 @@
-Gaston Scoreboard v21.0.0
-Changes: Match Actions are text-only, Admin Status/Info hidden, and Scoreboard now hides Status/Current Game/Match Time while keeping only Server.
+Gaston Scoreboard v22.0.0
+Changes: polished Admin Panel layout for laptop and phone; compact score controls with side-by-side scoring buttons and cleaner action buttons.
