@@ -20,6 +20,7 @@ export function getCurrentGameKey(data) {
 export function calculateStatus(data) {
   if (!data) return "Waiting";
   if (data.matchStatus === "finished") return "Finished";
+  if (!data.matchStartAt && data.matchStatus === "waiting") return "Waiting";
 
   const gameKey = getCurrentGameKey(data);
   const a = safeScore(data?.scores?.[gameKey]?.A);

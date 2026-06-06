@@ -1,2 +1,2 @@
-Gaston Scoreboard v5.0.0
-Changes: added Pertandingan Baru button to reset score, current game, server, status, match timer, and player names for a new match on the same court.
+Gaston Scoreboard v6.0.0
+Changes: neutral landing preview, no sample player names on initial menu, New Match no longer starts timer, Match Time starts only when Save Match Info & Start Timer is clicked.

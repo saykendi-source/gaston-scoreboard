@@ -241,7 +241,7 @@ el("newMatchBtn").addEventListener("click", async () => {
 
   const ok = confirm(
     "Mulai pertandingan baru di court ini?\n\n" +
-    "Skor lama akan direset ke 0-0, game kembali ke Game 1, dan timer dimulai dari 00:00:00."
+    "Skor lama akan direset ke 0-0, game kembali ke Game 1, dan timer disiapkan di 00:00:00."
   );
 
   if (!ok) return;
@@ -259,9 +259,9 @@ el("newMatchBtn").addEventListener("click", async () => {
     playerB: playerB2 ? `${playerB1} / ${playerB2}` : playerB1,
     currentGame: 1,
     server: "A1",
-    status: "Live",
-    matchStatus: "live",
-    matchStartAt: Date.now(),
+    status: "Waiting",
+    matchStatus: "waiting",
+    matchStartAt: null,
     matchEndAt: null,
     scores: {
       game1: { A: 0, B: 0 },
@@ -270,7 +270,7 @@ el("newMatchBtn").addEventListener("click", async () => {
     }
   });
 
-  alert("Pertandingan baru dimulai. Scoreboard LCD otomatis mengikuti data baru.");
+  alert("Pertandingan baru sudah disiapkan. Timer masih 00:00:00 dan baru berjalan setelah klik Save Match Info & Start Timer.");
 });
 
 el("finishBtn").addEventListener("click", async () => {
@@ -325,7 +325,7 @@ el("saveMatchInfo").addEventListener("click", async () => {
     matchStatus: "live"
   });
 
-  alert("Match info tersimpan. Timer pertandingan dimulai dari 00:00:00.");
+  alert("Match info tersimpan. Timer pertandingan sekarang dimulai dari 00:00:00.");
 });
 
 onValue(courtRef, snapshot => render(snapshot.val()));
