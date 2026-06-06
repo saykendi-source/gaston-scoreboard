@@ -1840,3 +1840,231 @@ button, a { -webkit-tap-highlight-color: transparent; }
 #adminRowB {
   border-left: 5px solid var(--team2);
 }
+
+
+/* =========================
+   v17: brighter yellow + brighter green
+   and fix admin match overview readability
+   ========================= */
+:root {
+  --team1: #FFB020;        /* brighter yellow-orange */
+  --team2: #35D46E;        /* brighter green */
+  --team1-soft: rgba(255, 176, 32, 0.99);
+  --team2-soft: rgba(53, 212, 110, 0.99);
+  --team1-glow: rgba(255, 176, 32, 0.42);
+  --team2-glow: rgba(53, 212, 110, 0.42);
+  --team1-outline: rgba(255, 229, 184, 0.48);
+  --team2-outline: rgba(205, 255, 223, 0.48);
+}
+
+/* ========= SCOREBOARD ========= */
+#rowA::after {
+  background: var(--team1) !important;
+  box-shadow: 0 0 24px rgba(255,176,32,.36) !important;
+}
+#rowB::after {
+  background: var(--team2) !important;
+  box-shadow: 0 0 24px rgba(53,212,110,.36) !important;
+}
+
+#rowA .player-line,
+#rowA .score-cell { color: var(--team1) !important; }
+#rowB .player-line,
+#rowB .score-cell { color: var(--team2) !important; }
+
+#rowA .score-cell:not(.current-score),
+#rowB .score-cell:not(.current-score) { color: #f8fafc !important; }
+
+#rowA .player-line.server-person {
+  color: #04130a !important;
+  -webkit-text-fill-color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team1-soft), rgba(255, 204, 95, .94) 72%, rgba(255,176,32,.24)) !important;
+  box-shadow:
+    inset 0 -10px 0 rgba(255,255,255,.17),
+    0 0 40px var(--team1-glow),
+    0 0 92px rgba(255,176,32,.16) !important;
+  outline: 2px solid var(--team1-outline) !important;
+}
+
+#rowB .player-line.server-person {
+  color: #04130a !important;
+  -webkit-text-fill-color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team2-soft), rgba(132, 239, 168, .92) 72%, rgba(53,212,110,.24)) !important;
+  box-shadow:
+    inset 0 -10px 0 rgba(255,255,255,.17),
+    0 0 40px var(--team2-glow),
+    0 0 92px rgba(53,212,110,.16) !important;
+  outline: 2px solid var(--team2-outline) !important;
+}
+
+#rowA .score-cell.current-score {
+  color: #04130a !important;
+  -webkit-text-fill-color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team1-soft), rgba(255, 204, 95, .94) 72%, rgba(255,176,32,.24)) !important;
+  box-shadow:
+    inset 0 -10px 0 rgba(255,255,255,.17),
+    0 0 40px var(--team1-glow),
+    0 0 92px rgba(255,176,32,.16) !important;
+  outline: 2px solid var(--team1-outline) !important;
+}
+
+#rowB .score-cell.current-score {
+  color: #04130a !important;
+  -webkit-text-fill-color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team2-soft), rgba(132, 239, 168, .92) 72%, rgba(53,212,110,.24)) !important;
+  box-shadow:
+    inset 0 -10px 0 rgba(255,255,255,.17),
+    0 0 40px var(--team2-glow),
+    0 0 92px rgba(53,212,110,.16) !important;
+  outline: 2px solid var(--team2-outline) !important;
+}
+
+/* ========= ADMIN MATCH OVERVIEW ========= */
+/* Team base colors */
+#adminRowA {
+  border-left: 5px solid var(--team1) !important;
+}
+#adminRowB {
+  border-left: 5px solid var(--team2) !important;
+}
+
+#adminRowA .compact-player-line,
+#adminRowA > span,
+#adminRowA > strong {
+  color: var(--team1) !important;
+}
+#adminRowB .compact-player-line,
+#adminRowB > span,
+#adminRowB > strong {
+  color: var(--team2) !important;
+}
+
+/* Inactive compact scores stay white */
+#adminRowA > span:not(.compact-current-score),
+#adminRowB > span:not(.compact-current-score),
+#adminRowA > strong:not(.compact-current-score),
+#adminRowB > strong:not(.compact-current-score) {
+  color: #f8fafc !important;
+}
+
+/* Fix readability: text must be dark when highlighted */
+#adminRowA .compact-player-line.server-person,
+#adminRowA.compact-row .compact-player-line.server-person {
+  color: #04130a !important;
+  -webkit-text-fill-color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team1-soft), rgba(255, 204, 95, .94) 72%, rgba(255,176,32,.24)) !important;
+  box-shadow:
+    inset 0 -7px 0 rgba(255,255,255,.16),
+    0 0 26px var(--team1-glow) !important;
+  outline: 1px solid var(--team1-outline) !important;
+  text-shadow: none !important;
+}
+
+#adminRowB .compact-player-line.server-person,
+#adminRowB.compact-row .compact-player-line.server-person {
+  color: #04130a !important;
+  -webkit-text-fill-color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team2-soft), rgba(132, 239, 168, .92) 72%, rgba(53,212,110,.24)) !important;
+  box-shadow:
+    inset 0 -7px 0 rgba(255,255,255,.16),
+    0 0 26px var(--team2-glow) !important;
+  outline: 1px solid var(--team2-outline) !important;
+  text-shadow: none !important;
+}
+
+/* Current active score in admin overview */
+#adminRowA .compact-current-score,
+#adminRowA.compact-row .compact-current-score {
+  color: #04130a !important;
+  -webkit-text-fill-color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team1-soft), rgba(255, 204, 95, .94) 72%, rgba(255,176,32,.24)) !important;
+  box-shadow:
+    inset 0 -7px 0 rgba(255,255,255,.16),
+    0 0 26px var(--team1-glow) !important;
+  outline: 1px solid var(--team1-outline) !important;
+  text-shadow: none !important;
+}
+
+#adminRowB .compact-current-score,
+#adminRowB.compact-row .compact-current-score {
+  color: #04130a !important;
+  -webkit-text-fill-color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team2-soft), rgba(132, 239, 168, .92) 72%, rgba(53,212,110,.24)) !important;
+  box-shadow:
+    inset 0 -7px 0 rgba(255,255,255,.16),
+    0 0 26px var(--team2-glow) !important;
+  outline: 1px solid var(--team2-outline) !important;
+  text-shadow: none !important;
+}
+
+/* Compact shuttle arrow visible on bright highlight */
+#adminRowA .compact-player-line.server-person::before,
+#adminRowB .compact-player-line.server-person::before {
+  color: #052e16 !important;
+}
+
+/* ========= ADMIN CONTROL CARDS ========= */
+#controlA {
+  border-color: rgba(255,176,32,.38) !important;
+  box-shadow: inset 0 0 18px rgba(255,176,32,.08), 0 0 14px rgba(255,176,32,.06) !important;
+}
+#controlB {
+  border-color: rgba(53,212,110,.38) !important;
+  box-shadow: inset 0 0 18px rgba(53,212,110,.08), 0 0 14px rgba(53,212,110,.06) !important;
+}
+
+#controlA h2,
+#adminPlayerA1,
+#adminPlayerA2,
+#adminA1Line,
+#adminA2Line {
+  color: var(--team1) !important;
+}
+#controlB h2,
+#adminPlayerB1,
+#adminPlayerB2,
+#adminB1Line,
+#adminB2Line {
+  color: var(--team2) !important;
+}
+
+#controlA .score-btn {
+  border-color: rgba(255,176,32,.48) !important;
+  background: linear-gradient(135deg, rgba(255,176,32,.34), rgba(193,112,16,.24)) !important;
+  color: #fff2d8 !important;
+}
+#controlB .score-btn {
+  border-color: rgba(53,212,110,.48) !important;
+  background: linear-gradient(135deg, rgba(53,212,110,.34), rgba(20,145,71,.24)) !important;
+  color: #eafff1 !important;
+}
+
+#controlA.serving-team {
+  border-color: var(--team1) !important;
+  box-shadow: 0 0 28px rgba(255,176,32,.24), inset 0 0 26px rgba(255,176,32,.10) !important;
+}
+#controlB.serving-team {
+  border-color: var(--team2) !important;
+  box-shadow: 0 0 28px rgba(53,212,110,.24), inset 0 0 26px rgba(53,212,110,.10) !important;
+}
+
+#controlA .server-person-btn.active {
+  color: #04130a !important;
+  border-color: var(--team1) !important;
+  background: linear-gradient(135deg, rgba(255,176,32,.92), rgba(255,204,95,.96)) !important;
+  box-shadow: inset 0 0 18px rgba(255,255,255,.10), 0 0 12px rgba(255,176,32,.18) !important;
+}
+#controlB .server-person-btn.active {
+  color: #04130a !important;
+  border-color: var(--team2) !important;
+  background: linear-gradient(135deg, rgba(53,212,110,.92), rgba(132,239,168,.96)) !important;
+  box-shadow: inset 0 0 18px rgba(255,255,255,.10), 0 0 12px rgba(53,212,110,.18) !important;
+}

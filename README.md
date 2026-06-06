@@ -1,4 +1,4 @@
-# Gaston Scoreboard v16
+# Gaston Scoreboard v17
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -122,3 +122,12 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
   - compact overview admin
   - control card admin
   - tombol score admin
+
+
+## Perubahan v17
+
+- Warna kuning dan hijau dibuat lebih cerah.
+- Panel admin disamakan lagi dengan panel scoreboard agar konsisten.
+- Perbaikan khusus pada **Match Overview** admin:
+  - teks pada area yang distabilo sekarang dibuat gelap agar mudah dibaca
+  - stabilo dan warna huruf tidak lagi bertabrakan

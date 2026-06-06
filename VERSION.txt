@@ -1,2 +1,2 @@
-Gaston Scoreboard v16.0.0
-Changes: brighter green for Team 2 and admin panel color system aligned with scoreboard colors.
+Gaston Scoreboard v17.0.0
+Changes: brighter yellow and green, improved admin/scoreboard color consistency, and fixed admin Match Overview highlighted text readability.
