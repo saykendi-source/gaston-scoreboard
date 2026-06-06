@@ -1,2 +1,2 @@
-Gaston Scoreboard v10.0.0
-Changes: serving player's name uses highlighter-style bright background for better long-distance visibility on scoreboard and admin overview.
+Gaston Scoreboard v11.0.0
+Changes: long highlighter band spans from server name area to the current game score column; active current score highlight moves with current game.

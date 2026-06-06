@@ -55,6 +55,22 @@ function markServer(server) {
   ids.rowB.classList.toggle("serving-team", serverTeam(server) === "B");
 }
 
+function markCurrentGame(currentGame) {
+  const game = Number(currentGame || 1);
+
+  [ids.rowA, ids.rowB].forEach(row => {
+    row.classList.remove("current-game-1", "current-game-2", "current-game-3");
+    row.classList.add(`current-game-${game}`);
+  });
+
+  ["game1A", "game1B", "game2A", "game2B", "game3A", "game3B"].forEach(key => {
+    ids[key]?.classList.remove("current-score");
+  });
+
+  ids[`game${game}A`]?.classList.add("current-score");
+  ids[`game${game}B`]?.classList.add("current-score");
+}
+
 function renderPlayerNames(data) {
   const matchType = getMatchType(data);
 
@@ -99,6 +115,7 @@ function renderScoreboard(data) {
   setText(ids.currentGameText, data.currentGame || 1);
 
   markServer(normalizeServer(data));
+  markCurrentGame(data.currentGame || 1);
   renderTimer();
 }
 

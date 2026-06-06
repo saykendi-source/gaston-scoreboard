@@ -1,4 +1,4 @@
-# Gaston Scoreboard v10
+# Gaston Scoreboard v11
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -61,3 +61,12 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
 - Tampilan pemain yang sedang serve dibuat seperti tulisan yang distabilo.
 - Highlight server dibuat jauh lebih kontras agar mudah terlihat dari jauh pada layar LCD/proyektor.
 - Highlight juga diterapkan pada Match Overview admin.
+
+
+## Perubahan v11
+
+- Highlight server kini berbentuk stabilo panjang dari area nama pemain sampai kolom skor game yang sedang dimainkan.
+- Jika sedang Game 1, stabilo hanya sampai skor Game 1.
+- Jika pindah ke Game 2, stabilo bergeser sampai skor Game 2 dan stabilo pada skor Game 1 hilang.
+- Jika pindah ke Game 3, stabilo sampai skor Game 3.
+- Nama pemain yang serve tetap menjadi fokus, tetapi highlight tidak berhenti pada panjang nama saja.

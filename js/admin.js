@@ -141,6 +141,23 @@ function markServer(data) {
   el("controlB").classList.toggle("serving-team", serverTeam(server) === "B");
 }
 
+function markCurrentGame(data) {
+  const game = Number(data?.currentGame || 1);
+
+  ["adminRowA", "adminRowB"].forEach(id => {
+    const row = el(id);
+    row?.classList.remove("current-game-1", "current-game-2", "current-game-3");
+    row?.classList.add(`current-game-${game}`);
+  });
+
+  ["adminGame1A", "adminGame1B", "adminGame2A", "adminGame2B", "adminGame3A", "adminGame3B"].forEach(id => {
+    el(id)?.classList.remove("compact-current-score");
+  });
+
+  el(`adminGame${game}A`)?.classList.add("compact-current-score");
+  el(`adminGame${game}B`)?.classList.add("compact-current-score");
+}
+
 function updateServerButtonNames(data) {
   const neutral = isNeutralMatch(data);
   setText("serverBtnA1", neutral ? "Pemain A1" : getName(data, "playerA1", "Pemain A1"));
@@ -226,6 +243,7 @@ function render(data) {
 
   showDoubleFields(matchType);
   markServer(data);
+  markCurrentGame(data);
   updateTimer();
 }
 
