@@ -1,4 +1,4 @@
-# Gaston Scoreboard v9
+# Gaston Scoreboard v10
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -54,3 +54,10 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
   - skor tim baru genap → orang 1 menjadi server
   - skor tim baru ganjil → orang 2 menjadi server
 - Tombol pilihan server manual tetap tersedia untuk koreksi cepat oleh admin.
+
+
+## Perubahan v10
+
+- Tampilan pemain yang sedang serve dibuat seperti tulisan yang distabilo.
+- Highlight server dibuat jauh lebih kontras agar mudah terlihat dari jauh pada layar LCD/proyektor.
+- Highlight juga diterapkan pada Match Overview admin.

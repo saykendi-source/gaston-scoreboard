@@ -1,2 +1,2 @@
-Gaston Scoreboard v9.0.0
-Changes: automatic server transfer when receiver wins a point; doubles server person is selected by the winning side's score parity; manual server override remains available.
+Gaston Scoreboard v10.0.0
+Changes: serving player's name uses highlighter-style bright background for better long-distance visibility on scoreboard and admin overview.
