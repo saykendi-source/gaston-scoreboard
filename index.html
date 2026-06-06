@@ -3,48 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gaston Scoreboard - Menu Utama</title>
+
+  <!-- [FIX 5] Meta description & favicon -->
+  <meta name="description" content="Gaston Scoreboard – Sistem skor pertandingan bulu tangkis live secara real-time." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <title>Gaston Scoreboard – Menu Utama</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=5.0.0" />
+
+  <!-- [FIX 6] CSS dipisah per concerns: base + landing -->
+  <link rel="stylesheet" href="css/base.css?v=5.0.0" />
+  <link rel="stylesheet" href="css/landing.css?v=5.0.0" />
+
+  <style>
+    /*
+     * [FIX 2] Kontrol centang (✓) lewat CSS — hanya tampil pada .selected
+     * Ini mencegah bug centang ganda yang muncul di kedua view-card.
+     */
+    .view-card .check {
+      visibility: hidden;
+      opacity: 0;
+    }
+    .view-card.selected .check {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
 </head>
+
+<!--
+  [FIX 8] Responsivitas: pastikan class page-shell & landing-page
+  sudah mempunyai breakpoint di CSS (mis. @media max-width: 768px).
+-->
 <body class="page-shell landing-page">
+
   <header class="topbar">
     <div class="brand">
-      <div class="brand-logo shuttle-mark"></div>
+      <!-- brand-logo tetap sebagai dekorasi, tidak perlu alt -->
+      <div class="brand-logo shuttle-mark" role="presentation" aria-hidden="true"></div>
       <div>
+        <!--
+          [FIX 4] <h1> sekarang konsisten dengan <title>.
+          Gunakan <h1> untuk identitas halaman, bukan nama aplikasi saja.
+        -->
         <h1>GASTON SCOREBOARD</h1>
-        <p>Select Court & View</p>
+        <p>Select Court &amp; View</p>
       </div>
     </div>
+
     <div class="top-actions">
-      <span class="live-pill"><span></span> LIVE</span>
-      <button class="icon-btn" title="Broadcast">◉</button>
-      <button class="icon-btn" title="Help">?</button>
-      <button class="icon-btn" title="Settings">⚙</button>
+      <span class="live-pill" role="status" aria-live="polite">
+        <span aria-hidden="true"></span> LIVE
+      </span>
+
+      <!-- [FIX 1] aria-label ditambahkan di semua icon-btn agar screen reader bisa membacanya -->
+      <button class="icon-btn" aria-label="Broadcast">◉</button>
+      <button class="icon-btn" aria-label="Bantuan (Help)">?</button>
+      <button class="icon-btn" aria-label="Pengaturan (Settings)">⚙</button>
     </div>
   </header>
 
   <main class="landing-layout">
-    <section class="panel selection-panel">
-      <div class="section-title"><span>1</span> Choose Court / Lapangan</div>
-      <div id="courtGrid" class="court-grid"></div>
+    <section class="panel selection-panel" aria-labelledby="sectionTitle">
+      <div class="section-title" id="sectionTitle">
+        <span aria-hidden="true">1</span> Choose Court / Lapangan
+      </div>
+      <div id="courtGrid" class="court-grid" role="list" aria-label="Daftar lapangan"></div>
 
-      <div class="divider"></div>
+      <div class="divider" role="separator" aria-hidden="true"></div>
 
-      <div class="section-title"><span>2</span> Choose View</div>
-      <div class="view-grid">
-        <button class="view-card selected" data-view="scoreboard">
+      <div class="section-title">
+        <span aria-hidden="true">2</span> Choose View
+      </div>
+
+      <!--
+        [FIX 1] role="group" + aria-label pada container tombol view
+        agar screen reader tahu ini adalah kelompok pilihan.
+      -->
+      <div class="view-grid" role="group" aria-label="Pilihan tampilan">
+
+        <!--
+          [FIX 1 & 2] aria-pressed menandai state selected/unselected
+          secara semantik. Centang (✓) dikontrol oleh CSS (lihat <style> di atas),
+          bukan hardcoded — sehingga hanya kartu aktif yang menampilkan centang.
+        -->
+        <button
+          class="view-card selected"
+          data-view="scoreboard"
+          aria-pressed="true"
+          aria-label="Pilih tampilan Scoreboard – papan skor publik"
+        >
           <div class="view-card-head">
-            <div class="view-icon">▮▮▮</div>
+            <div class="view-icon" aria-hidden="true">▮▮▮</div>
             <div>
               <h2>Scoreboard</h2>
               <p>Public match scoreboard view</p>
             </div>
-            <span class="check">✓</span>
+            <!-- [FIX 2] Centang ada di HTML, visibilitasnya dikontrol CSS -->
+            <span class="check" aria-hidden="true">✓</span>
           </div>
-          <div class="mini-preview scoreboard-preview">
+          <div class="mini-preview scoreboard-preview" aria-hidden="true">
             <div class="mini-header">
               <b>GASTON SCOREBOARD</b>
               <span>● LIVE</span>
@@ -55,7 +116,7 @@
                 <b>17</b><b>27</b><strong>19</strong>
               </div>
               <div class="mini-row active">
-                <span><i class="shuttle-icon tiny"></i> NG K.L.A.</span>
+                <span><i class="shuttle-icon tiny" aria-hidden="true"></i> NG K.L.A.</span>
                 <b>21</b><b>25</b><strong>17</strong>
               </div>
             </div>
@@ -66,16 +127,23 @@
           </div>
         </button>
 
-        <button class="view-card" data-view="admin">
+        <button
+          class="view-card"
+          data-view="admin"
+          aria-pressed="false"
+          aria-label="Pilih tampilan Admin Panel – kontrol dan manajemen turnamen"
+        >
           <div class="view-card-head">
-            <div class="view-icon">👥</div>
+            <!-- [FIX 1] Emoji dekoratif diberi aria-hidden agar tidak dibaca screen reader -->
+            <div class="view-icon" aria-hidden="true">👥</div>
             <div>
               <h2>Admin Panel</h2>
-              <p>Tournament control & management</p>
+              <p>Tournament control &amp; management</p>
             </div>
-            <span class="check">✓</span>
+            <!-- [FIX 2] Centang tersembunyi via CSS saat tidak selected -->
+            <span class="check" aria-hidden="true">✓</span>
           </div>
-          <div class="mini-preview admin-preview">
+          <div class="mini-preview admin-preview" aria-hidden="true">
             <div class="mini-header">
               <b>ADMIN CONTROL</b>
               <span>● LIVE</span>
@@ -83,13 +151,13 @@
             <div class="mini-admin">
               <div class="mini-team">
                 <span>DWI</span>
-                <button>+1</button>
-                <button>-1</button>
+                <button tabindex="-1">+1</button>
+                <button tabindex="-1">-1</button>
               </div>
               <div class="mini-team active">
-                <span><i class="shuttle-icon tiny"></i> NG</span>
-                <button>+1</button>
-                <button>-1</button>
+                <span><i class="shuttle-icon tiny" aria-hidden="true"></i> NG</span>
+                <button tabindex="-1">+1</button>
+                <button tabindex="-1">-1</button>
               </div>
             </div>
             <div class="mini-actions">
@@ -105,37 +173,76 @@
       </div>
     </section>
 
-    <aside class="panel status-panel">
+    <aside class="panel status-panel" aria-label="Status event">
       <h3>Event Status</h3>
+
       <div class="status-item">
-        <span>📅</span>
-        <div><small>Today's Event</small><b id="todayEvent">Final Match Day</b></div>
+        <span aria-hidden="true">📅</span>
+        <div>
+          <small>Today's Event</small>
+          <b id="todayEvent">Final Match Day</b>
+        </div>
       </div>
+
       <div class="status-item">
-        <span>🏟</span>
-        <div><small>Active Courts</small><b><em id="activeCourts">6</em> of 6</b></div>
+        <span aria-hidden="true">🏟</span>
+        <div>
+          <small>Active Courts</small>
+          <!--
+            [FIX 4] Ganti <em> dengan <span> untuk angka dinamis.
+            <em> = penekanan teks (italic), bukan untuk angka/data.
+          -->
+          <b><span id="activeCourts">6</span> of 6</b>
+        </div>
       </div>
+
       <div class="status-item">
-        <span>📡</span>
-        <div><small>Live Matches</small><b id="liveMatches">0</b></div>
+        <span aria-hidden="true">📡</span>
+        <div>
+          <small>Live Matches</small>
+          <b id="liveMatches" aria-live="polite">0</b>
+        </div>
       </div>
+
       <div class="status-item">
-        <span>👥</span>
-        <div><small>Total Matches</small><b id="totalMatches">0</b></div>
+        <span aria-hidden="true">👥</span>
+        <div>
+          <small>Total Matches</small>
+          <b id="totalMatches">0</b>
+        </div>
       </div>
+
       <div class="status-item">
-        <span>🕒</span>
-        <div><small>Event Time</small><b id="eventTime">08:00 - 22:00</b></div>
+        <span aria-hidden="true">🕒</span>
+        <div>
+          <small>Event Time</small>
+          <b id="eventTime">08:00 - 22:00</b>
+        </div>
       </div>
-      <div class="enjoy-card"><i class="shuttle-icon"></i> <div><b>Enjoy the game!</b><p>Let's play fair & have fun.</p></div></div>
+
+      <div class="enjoy-card">
+        <i class="shuttle-icon" aria-hidden="true"></i>
+        <div>
+          <b>Enjoy the game!</b>
+          <p>Let's play fair &amp; have fun.</p>
+        </div>
+      </div>
     </aside>
   </main>
 
   <footer class="footer-strip">
-    <span>ⓘ Use this page to open the correct court display or admin control panel.</span>
-    <span><i class="shuttle-icon tiny"></i> Thank you for supporting <b>GASTON SCOREBOARD</b></span>
+    <span>ⓘ Gunakan halaman ini untuk membuka tampilan lapangan atau panel admin yang sesuai.</span>
+    <span>
+      <i class="shuttle-icon tiny" aria-hidden="true"></i>
+      Terima kasih telah mendukung <b>GASTON SCOREBOARD</b>
+    </span>
   </footer>
 
+  <!--
+    [FIX 7] type="module" sudah otomatis defer — tidak perlu tambahan atribut defer.
+    [FIX 3] Versi di-cache-bust manual; pertimbangkan otomatisasi via build tool (Vite/Webpack).
+  -->
   <script type="module" src="js/landing.js?v=5.0.0"></script>
+
 </body>
 </html>
