@@ -1,4 +1,4 @@
-# Gaston Scoreboard v13
+# Gaston Scoreboard v14
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -89,3 +89,12 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
 - Perubahan ini diterapkan pada:
   - tampilan scoreboard LCD
   - match overview admin
+
+
+## Perubahan v14
+
+- Saat admin klik **Next Game**, server otomatis kembali ke **Tim A - Orang 1**.
+- Berlaku untuk perpindahan:
+  - Game 1 → Game 2
+  - Game 2 → Game 3
+- Sebelum pindah game, muncul konfirmasi agar admin tidak salah klik.

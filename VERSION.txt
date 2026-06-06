@@ -1,2 +1,2 @@
-Gaston Scoreboard v13.0.0
-Changes: only the current score of the serving side is highlighted; the opponent's score in the same game is no longer highlighted.
+Gaston Scoreboard v14.0.0
+Changes: Next Game resets server to A1 (Team A person 1) when moving from game 1 to 2 or 2 to 3, with confirmation dialog.

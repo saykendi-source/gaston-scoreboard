@@ -335,9 +335,15 @@ el("nextGameBtn").addEventListener("click", async () => {
     alert("Sudah berada di Game 3.");
     return;
   }
+
+  const nextGame = currentGame + 1;
+  const ok = confirm(`Pindah ke Game ${nextGame}?\n\nServe akan dimulai lagi dari Tim A - Orang 1.`);
+  if (!ok) return;
+
   saveHistory();
   await update(courtRef, {
-    currentGame: currentGame + 1,
+    currentGame: nextGame,
+    server: "A1",
     status: "Live",
     matchStatus: "live"
   });
