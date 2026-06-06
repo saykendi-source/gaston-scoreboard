@@ -1,2 +1,2 @@
-Gaston Scoreboard v14.0.0
-Changes: Next Game resets server to A1 (Team A person 1) when moving from game 1 to 2 or 2 to 3, with confirmation dialog.
+Gaston Scoreboard v15.0.0
+Changes: Team 1 uses #F28E1C and Team 2 uses #009F3C; server-name highlighter preserved; active serving score highlight follows each team's color.
