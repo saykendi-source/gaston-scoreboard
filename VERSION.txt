@@ -1,2 +1,2 @@
-Gaston Scoreboard v11.0.0
-Changes: long highlighter band spans from server name area to the current game score column; active current score highlight moves with current game.
+Gaston Scoreboard v12.0.0
+Changes: only the actual serving player's name is highlighted; current game score cells use the same highlighter style; name and score highlights are separated by a visible gap.

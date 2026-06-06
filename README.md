@@ -1,4 +1,4 @@
-# Gaston Scoreboard v11
+# Gaston Scoreboard v12
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -70,3 +70,13 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
 - Jika pindah ke Game 2, stabilo bergeser sampai skor Game 2 dan stabilo pada skor Game 1 hilang.
 - Jika pindah ke Game 3, stabilo sampai skor Game 3.
 - Nama pemain yang serve tetap menjadi fokus, tetapi highlight tidak berhenti pada panjang nama saja.
+
+
+## Perubahan v12
+
+- Highlight server tidak lagi berupa stabilo menyambung.
+- Stabilo nama hanya muncul pada pemain yang benar-benar sedang serve.
+- Untuk pertandingan ganda, partner yang tidak sedang serve tidak ikut distabilo.
+- Stabilo score dibuat sama dengan stabilo nama pemain.
+- Ada jarak/pemisah yang jelas antara stabilo nama pemain dan stabilo score.
+- Stabilo score tetap mengikuti game yang sedang dimainkan.
