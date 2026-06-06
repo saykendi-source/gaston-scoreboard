@@ -1623,3 +1623,220 @@ button, a { -webkit-tap-highlight-color: transparent; }
     width: 6px;
   }
 }
+
+
+/* =========================
+   v16: brighter green + admin panel aligned with scoreboard colors
+   Team 1 = #F28E1C
+   Team 2 = brighter green
+   ========================= */
+
+:root {
+  --team1: #F28E1C;
+  --team2: #22C55E; /* brighter green */
+  --team1-soft: rgba(242, 142, 28, 0.98);
+  --team2-soft: rgba(34, 197, 94, 0.98);
+  --team1-glow: rgba(242, 142, 28, 0.36);
+  --team2-glow: rgba(34, 197, 94, 0.36);
+  --team1-outline: rgba(255, 218, 181, 0.42);
+  --team2-outline: rgba(198, 255, 216, 0.42);
+}
+
+/* Scoreboard row accents */
+#rowA::after {
+  background: var(--team1) !important;
+  box-shadow: 0 0 22px rgba(242,142,28,.34) !important;
+}
+#rowB::after {
+  background: var(--team2) !important;
+  box-shadow: 0 0 22px rgba(34,197,94,.34) !important;
+}
+
+/* Team colors on scoreboard text */
+#rowA .player-line,
+#rowA .score-cell {
+  color: var(--team1) !important;
+}
+#rowB .player-line,
+#rowB .score-cell {
+  color: var(--team2) !important;
+}
+
+#rowA .score-cell:not(.current-score),
+#rowB .score-cell:not(.current-score) {
+  color: #f8fafc !important;
+}
+
+/* Serving name highlight */
+#rowA .player-line.server-person {
+  color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team1-soft), rgba(255, 182, 80, .92) 72%, rgba(242,142,28,.24)) !important;
+  box-shadow:
+    inset 0 -10px 0 rgba(255,255,255,.16),
+    0 0 36px var(--team1-glow),
+    0 0 90px rgba(242,142,28,.16) !important;
+  outline: 2px solid var(--team1-outline) !important;
+}
+
+#rowB .player-line.server-person {
+  color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team2-soft), rgba(92, 232, 141, .90) 72%, rgba(34,197,94,.24)) !important;
+  box-shadow:
+    inset 0 -10px 0 rgba(255,255,255,.16),
+    0 0 36px var(--team2-glow),
+    0 0 90px rgba(34,197,94,.16) !important;
+  outline: 2px solid var(--team2-outline) !important;
+}
+
+/* Current active serving score highlight */
+#rowA .score-cell.current-score {
+  color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team1-soft), rgba(255, 182, 80, .92) 72%, rgba(242,142,28,.24)) !important;
+  box-shadow:
+    inset 0 -10px 0 rgba(255,255,255,.16),
+    0 0 36px var(--team1-glow),
+    0 0 90px rgba(242,142,28,.16) !important;
+  outline: 2px solid var(--team1-outline) !important;
+}
+
+#rowB .score-cell.current-score {
+  color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team2-soft), rgba(92, 232, 141, .90) 72%, rgba(34,197,94,.24)) !important;
+  box-shadow:
+    inset 0 -10px 0 rgba(255,255,255,.16),
+    0 0 36px var(--team2-glow),
+    0 0 90px rgba(34,197,94,.16) !important;
+  outline: 2px solid var(--team2-outline) !important;
+}
+
+/* Admin overview matches scoreboard exactly */
+#adminRowA .compact-player-line,
+#adminRowA > span,
+#adminRowA > strong {
+  color: var(--team1) !important;
+}
+#adminRowB .compact-player-line,
+#adminRowB > span,
+#adminRowB > strong {
+  color: var(--team2) !important;
+}
+
+#adminRowA > span:not(.compact-current-score),
+#adminRowB > span:not(.compact-current-score),
+#adminRowA > strong:not(.compact-current-score),
+#adminRowB > strong:not(.compact-current-score) {
+  color: #f8fafc !important;
+}
+
+#adminRowA .compact-player-line.server-person {
+  color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team1-soft), rgba(255, 182, 80, .92) 72%, rgba(242,142,28,.24)) !important;
+  box-shadow:
+    inset 0 -7px 0 rgba(255,255,255,.15),
+    0 0 24px var(--team1-glow) !important;
+  outline: 1px solid var(--team1-outline) !important;
+}
+
+#adminRowB .compact-player-line.server-person {
+  color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team2-soft), rgba(92, 232, 141, .90) 72%, rgba(34,197,94,.24)) !important;
+  box-shadow:
+    inset 0 -7px 0 rgba(255,255,255,.15),
+    0 0 24px var(--team2-glow) !important;
+  outline: 1px solid var(--team2-outline) !important;
+}
+
+#adminRowA .compact-current-score {
+  color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team1-soft), rgba(255, 182, 80, .92) 72%, rgba(242,142,28,.24)) !important;
+  box-shadow:
+    inset 0 -7px 0 rgba(255,255,255,.15),
+    0 0 24px var(--team1-glow) !important;
+  outline: 1px solid var(--team1-outline) !important;
+}
+
+#adminRowB .compact-current-score {
+  color: #04130a !important;
+  background:
+    linear-gradient(90deg, var(--team2-soft), rgba(92, 232, 141, .90) 72%, rgba(34,197,94,.24)) !important;
+  box-shadow:
+    inset 0 -7px 0 rgba(255,255,255,.15),
+    0 0 24px var(--team2-glow) !important;
+  outline: 1px solid var(--team2-outline) !important;
+}
+
+/* Admin control panel cards also follow team colors */
+#controlA {
+  border-color: rgba(242,142,28,.34) !important;
+  box-shadow: inset 0 0 18px rgba(242,142,28,.07), 0 0 14px rgba(242,142,28,.06);
+}
+#controlB {
+  border-color: rgba(34,197,94,.34) !important;
+  box-shadow: inset 0 0 18px rgba(34,197,94,.07), 0 0 14px rgba(34,197,94,.06);
+}
+
+#controlA h2,
+#adminPlayerA1,
+#adminPlayerA2,
+#adminA1Line,
+#adminA2Line {
+  color: var(--team1) !important;
+}
+#controlB h2,
+#adminPlayerB1,
+#adminPlayerB2,
+#adminB1Line,
+#adminB2Line {
+  color: var(--team2) !important;
+}
+
+/* Team-specific scoring buttons */
+#controlA .score-btn {
+  border-color: rgba(242,142,28,.45) !important;
+  background: linear-gradient(135deg, rgba(242,142,28,.32), rgba(180,95,8,.24)) !important;
+  color: #ffd8b5 !important;
+}
+#controlB .score-btn {
+  border-color: rgba(34,197,94,.45) !important;
+  background: linear-gradient(135deg, rgba(34,197,94,.32), rgba(21,128,61,.24)) !important;
+  color: #d1fae5 !important;
+}
+
+/* Server team emphasis on admin cards */
+#controlA.serving-team {
+  border-color: var(--team1) !important;
+  box-shadow: 0 0 26px rgba(242,142,28,.24), inset 0 0 26px rgba(242,142,28,.10) !important;
+}
+#controlB.serving-team {
+  border-color: var(--team2) !important;
+  box-shadow: 0 0 26px rgba(34,197,94,.24), inset 0 0 26px rgba(34,197,94,.10) !important;
+}
+
+/* Server selection buttons colored by team */
+#controlA .server-person-btn.active {
+  color: #04130a !important;
+  border-color: var(--team1) !important;
+  background: linear-gradient(135deg, rgba(242,142,28,.88), rgba(255,182,80,.92)) !important;
+  box-shadow: inset 0 0 18px rgba(255,255,255,.10), 0 0 12px rgba(242,142,28,.16) !important;
+}
+#controlB .server-person-btn.active {
+  color: #04130a !important;
+  border-color: var(--team2) !important;
+  background: linear-gradient(135deg, rgba(34,197,94,.88), rgba(92,232,141,.92)) !important;
+  box-shadow: inset 0 0 18px rgba(255,255,255,.10), 0 0 12px rgba(34,197,94,.16) !important;
+}
+
+/* Admin match overview row accents */
+#adminRowA {
+  border-left: 5px solid var(--team1);
+}
+#adminRowB {
+  border-left: 5px solid var(--team2);
+}

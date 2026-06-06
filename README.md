@@ -1,4 +1,4 @@
-# Gaston Scoreboard v15
+# Gaston Scoreboard v16
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -109,3 +109,16 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
 - Saat pemain sedang serve, nama tetap distabilo dengan warna timnya.
 - Score yang sedang aktif dan sedang serve juga mengikuti warna tim yang sedang serve.
 - Tampilan admin compact overview juga mengikuti warna tim 1 dan tim 2.
+
+
+## Perubahan v16
+
+- Warna hijau dibuat lebih cerah agar seimbang dengan warna kuning/oranye.
+- Panel admin sekarang disamakan nuansa warnanya dengan panel scoreboard.
+- Tim 2 memakai hijau yang lebih terang pada:
+  - nama pemain
+  - highlight serve
+  - highlight score aktif
+  - compact overview admin
+  - control card admin
+  - tombol score admin

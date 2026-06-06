@@ -1,2 +1,2 @@
-Gaston Scoreboard v15.0.0
-Changes: Team 1 uses #F28E1C and Team 2 uses #009F3C; server-name highlighter preserved; active serving score highlight follows each team's color.
+Gaston Scoreboard v16.0.0
+Changes: brighter green for Team 2 and admin panel color system aligned with scoreboard colors.
