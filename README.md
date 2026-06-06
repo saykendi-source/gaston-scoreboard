@@ -1,8 +1,8 @@
-# Gaston Scoreboard v6
+# Gaston Scoreboard v7
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
-## Perubahan v6
+## Perubahan v7
 
 - Input logo/bendera dihapus.
 - Tampilan logo/bendera sebelum nama pemain dihapus.
@@ -15,6 +15,8 @@ Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime D
 - Tombol **Pertandingan Baru** menyiapkan pertandingan baru: reset skor, kembali ke Game 1, mengganti nama pemain, dan timer tetap 00:00:00.
 - **Match Time** baru berjalan setelah tombol **Save Match Info & Start Timer** diklik.
 - Preview awal Scoreboard dan Admin Panel dibuat netral tanpa nama pemain dan tanpa skor contoh.
+- Admin Match Overview dan Match Info mendukung mode netral ketika pertandingan baru disiapkan tanpa nama.
+- Saat klik **Pertandingan Baru**, muncul pilihan **Gunakan Nama Sebelumnya** atau **Masukkan Nama Baru**.
 
 ## Halaman
 

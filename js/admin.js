@@ -11,7 +11,8 @@ import {
   normalizeServer,
   serverTeam,
   teamLabel,
-  serverLabel
+  serverLabel,
+  isNeutralMatch
 } from "./utils.js";
 
 const courtNumber = getCourtNumber();
@@ -21,6 +22,62 @@ let currentData = null;
 let historyStack = [];
 
 const el = id => document.getElementById(id);
+
+function openNewMatchModal() {
+  el("newMatchModal")?.classList.remove("is-hidden");
+}
+
+function closeNewMatchModal() {
+  el("newMatchModal")?.classList.add("is-hidden");
+}
+
+function emptyScores() {
+  return {
+    game1: { A: 0, B: 0 },
+    game2: { A: 0, B: 0 },
+    game3: { A: 0, B: 0 }
+  };
+}
+
+function getNamesFromForm() {
+  const matchType = el("inputMatchType").value;
+  const playerA1 = el("inputPlayerA1").value.trim();
+  const playerA2 = matchType === "double" ? el("inputPlayerA2").value.trim() : "";
+  const playerB1 = el("inputPlayerB1").value.trim();
+  const playerB2 = matchType === "double" ? el("inputPlayerB2").value.trim() : "";
+
+  return { matchType, playerA1, playerA2, playerB1, playerB2 };
+}
+
+function clearNameForm() {
+  setValue("inputPlayerA1", "");
+  setValue("inputPlayerA2", "");
+  setValue("inputPlayerB1", "");
+  setValue("inputPlayerB2", "");
+}
+
+async function resetCourtForNewMatch(names, neutral = false) {
+  await update(courtRef, {
+    tournament: el("inputTournament").value.trim() || "GASTON SCOREBOARD",
+    round: el("inputRound").value.trim() || "-",
+    court: `Court ${courtNumber}`,
+    matchType: names.matchType || "single",
+    playerA1: names.playerA1 || "",
+    playerA2: names.matchType === "double" ? (names.playerA2 || "") : "",
+    playerB1: names.playerB1 || "",
+    playerB2: names.matchType === "double" ? (names.playerB2 || "") : "",
+    playerA: names.playerA2 ? `${names.playerA1} / ${names.playerA2}` : (names.playerA1 || ""),
+    playerB: names.playerB2 ? `${names.playerB1} / ${names.playerB2}` : (names.playerB1 || ""),
+    neutral,
+    currentGame: 1,
+    server: "A1",
+    status: "Waiting",
+    matchStatus: "waiting",
+    matchStartAt: null,
+    matchEndAt: null,
+    scores: emptyScores()
+  });
+}
 
 function setText(id, value) {
   const node = el(id);
@@ -80,10 +137,11 @@ function markServer(data) {
 }
 
 function updateServerButtonNames(data) {
-  setText("serverBtnA1", getName(data, "playerA1", "Pemain A1"));
-  setText("serverBtnA2", getName(data, "playerA2", "Pemain A2"));
-  setText("serverBtnB1", getName(data, "playerB1", "Pemain B1"));
-  setText("serverBtnB2", getName(data, "playerB2", "Pemain B2"));
+  const neutral = isNeutralMatch(data);
+  setText("serverBtnA1", neutral ? "Pemain A1" : getName(data, "playerA1", "Pemain A1"));
+  setText("serverBtnA2", neutral ? "Pemain A2" : getName(data, "playerA2", "Pemain A2"));
+  setText("serverBtnB1", neutral ? "Pemain B1" : getName(data, "playerB1", "Pemain B1"));
+  setText("serverBtnB2", neutral ? "Pemain B2" : getName(data, "playerB2", "Pemain B2"));
 }
 
 function updateTimer() {
@@ -95,23 +153,27 @@ function render(data) {
   currentData = data;
 
   const matchType = getMatchType(data);
-  const a2 = getName(data, "playerA2", "");
-  const b2 = getName(data, "playerB2", "");
+  const neutral = isNeutralMatch(data);
+  const a2 = neutral ? "" : getName(data, "playerA2", "");
+  const b2 = neutral ? "" : getName(data, "playerB2", "");
 
   setText("adminTitle", data.tournament || "GASTON SCOREBOARD");
   setText("adminRound", data.round || "-");
   setText("adminCourt", data.court || `Court ${courtNumber}`);
 
-  setText("adminPlayerA1", getName(data, "playerA1", "Player A"));
+  setText("adminPlayerA1", neutral ? "TEAM A" : getName(data, "playerA1", "TEAM A"));
   setText("adminPlayerA2", a2);
-  setText("adminPlayerB1", getName(data, "playerB1", "Player B"));
+  setText("adminPlayerB1", neutral ? "TEAM B" : getName(data, "playerB1", "TEAM B"));
   setText("adminPlayerB2", b2);
+
+  el("adminA1Line")?.classList.toggle("neutral-text", neutral);
+  el("adminB1Line")?.classList.toggle("neutral-text", neutral);
 
   el("adminA2Line")?.classList.toggle("hidden", matchType !== "double" || !a2);
   el("adminB2Line")?.classList.toggle("hidden", matchType !== "double" || !b2);
 
-  setText("controlNameA", teamLabel(data, "A"));
-  setText("controlNameB", teamLabel(data, "B"));
+  setText("controlNameA", neutral ? "TEAM A" : teamLabel(data, "A"));
+  setText("controlNameB", neutral ? "TEAM B" : teamLabel(data, "B"));
   updateServerButtonNames(data);
 
   setText("adminGame1A", safeScore(data?.scores?.game1?.A));
@@ -128,10 +190,10 @@ function render(data) {
   setValue("inputTournament", data.tournament || "GASTON SCOREBOARD");
   setValue("inputRound", data.round || "");
   setValue("inputMatchType", matchType);
-  setValue("inputPlayerA1", getName(data, "playerA1", "Player A"));
-  setValue("inputPlayerA2", a2);
-  setValue("inputPlayerB1", getName(data, "playerB1", "Player B"));
-  setValue("inputPlayerB2", b2);
+  setValue("inputPlayerA1", neutral ? "" : getName(data, "playerA1", ""));
+  setValue("inputPlayerA2", neutral ? "" : a2);
+  setValue("inputPlayerB1", neutral ? "" : getName(data, "playerB1", ""));
+  setValue("inputPlayerB2", neutral ? "" : b2);
 
   showDoubleFields(matchType);
   markServer(data);
@@ -230,50 +292,43 @@ el("nextGameBtn").addEventListener("click", async () => {
 
 
 el("newMatchBtn").addEventListener("click", async () => {
+  await refreshCurrentData();
+  openNewMatchModal();
+});
+
+el("newMatchCancel")?.addEventListener("click", closeNewMatchModal);
+
+el("newMatchUsePrevious")?.addEventListener("click", async () => {
   const data = await refreshCurrentData();
   if (data) saveHistory();
 
-  const matchType = el("inputMatchType").value;
-  const playerA1 = el("inputPlayerA1").value.trim() || "Player A";
-  const playerA2 = matchType === "double" ? el("inputPlayerA2").value.trim() : "";
-  const playerB1 = el("inputPlayerB1").value.trim() || "Player B";
-  const playerB2 = matchType === "double" ? el("inputPlayerB2").value.trim() : "";
+  const names = {
+    matchType: getMatchType(data) || el("inputMatchType").value || "single",
+    playerA1: getName(data, "playerA1", el("inputPlayerA1").value.trim()),
+    playerA2: getName(data, "playerA2", el("inputPlayerA2").value.trim()),
+    playerB1: getName(data, "playerB1", el("inputPlayerB1").value.trim()),
+    playerB2: getName(data, "playerB2", el("inputPlayerB2").value.trim())
+  };
 
-  const ok = confirm(
-    "Mulai pertandingan baru di court ini?\n\n" +
-    "Skor lama akan direset ke 0-0, game kembali ke Game 1, dan timer disiapkan di 00:00:00."
-  );
-
-  if (!ok) return;
-
-  await update(courtRef, {
-    tournament: el("inputTournament").value.trim() || "GASTON SCOREBOARD",
-    round: el("inputRound").value.trim() || "-",
-    court: `Court ${courtNumber}`,
-    matchType,
-    playerA1,
-    playerA2,
-    playerB1,
-    playerB2,
-    playerA: playerA2 ? `${playerA1} / ${playerA2}` : playerA1,
-    playerB: playerB2 ? `${playerB1} / ${playerB2}` : playerB1,
-    currentGame: 1,
-    server: "A1",
-    status: "Waiting",
-    matchStatus: "waiting",
-    matchStartAt: null,
-    matchEndAt: null,
-    scores: {
-      game1: { A: 0, B: 0 },
-      game2: { A: 0, B: 0 },
-      game3: { A: 0, B: 0 }
-    }
-  });
-
-  alert("Pertandingan baru sudah disiapkan. Timer masih 00:00:00 dan baru berjalan setelah klik Save Match Info & Start Timer.");
+  await resetCourtForNewMatch(names, false);
+  closeNewMatchModal();
+  alert("Pertandingan baru disiapkan memakai nama sebelumnya. Timer tetap 00:00:00 sampai tombol Save Match Info & Start Timer diklik.");
 });
 
-el("finishBtn").addEventListener("click", async () => {
+el("newMatchInputNew")?.addEventListener("click", async () => {
+  const data = await refreshCurrentData();
+  if (data) saveHistory();
+
+  const matchType = el("inputMatchType").value || getMatchType(data) || "single";
+  clearNameForm();
+  await resetCourtForNewMatch({ matchType, playerA1: "", playerA2: "", playerB1: "", playerB2: "" }, true);
+
+  closeNewMatchModal();
+  setTimeout(() => el("inputPlayerA1")?.focus(), 100);
+  alert("Form nama sudah dikosongkan. Silakan masukkan nama baru, lalu klik Save Match Info & Start Timer untuk mulai pertandingan.");
+});
+
+el("finishBtn".addEventListener("click", async () => {
   if (!confirm("Selesaikan pertandingan ini?")) return;
   saveHistory();
   await update(courtRef, {
@@ -302,10 +357,15 @@ el("saveMatchInfo").addEventListener("click", async () => {
   if (data) saveHistory();
 
   const matchType = el("inputMatchType").value;
-  const playerA1 = el("inputPlayerA1").value.trim() || "Player A";
+  const playerA1 = el("inputPlayerA1").value.trim();
   const playerA2 = matchType === "double" ? el("inputPlayerA2").value.trim() : "";
-  const playerB1 = el("inputPlayerB1").value.trim() || "Player B";
+  const playerB1 = el("inputPlayerB1").value.trim();
   const playerB2 = matchType === "double" ? el("inputPlayerB2").value.trim() : "";
+
+  if (!playerA1 || !playerB1) {
+    alert("Nama Tim A Orang 1 dan Tim B Orang 1 wajib diisi sebelum timer dimulai.");
+    return;
+  }
 
   await update(courtRef, {
     tournament: el("inputTournament").value.trim() || "GASTON SCOREBOARD",
@@ -318,6 +378,7 @@ el("saveMatchInfo").addEventListener("click", async () => {
     playerB2,
     playerA: playerA2 ? `${playerA1} / ${playerA2}` : playerA1,
     playerB: playerB2 ? `${playerB1} / ${playerB2}` : playerB1,
+    neutral: false,
     server: matchType === "double" ? "A1" : "A1",
     matchStartAt: Date.now(),
     matchEndAt: null,

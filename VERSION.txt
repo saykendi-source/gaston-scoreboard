@@ -1,2 +1,2 @@
-Gaston Scoreboard v6.0.0
-Changes: neutral landing preview, no sample player names on initial menu, New Match no longer starts timer, Match Time starts only when Save Match Info & Start Timer is clicked.
+Gaston Scoreboard v7.0.0
+Changes: neutral admin Match Overview/Match Info support, new match modal with options to use previous names or input new names.

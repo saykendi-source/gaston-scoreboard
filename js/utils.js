@@ -103,3 +103,8 @@ export function serverLabel(data) {
   };
   return nameMap[server] || server;
 }
+
+
+export function isNeutralMatch(data) {
+  return data?.neutral === true;
+}

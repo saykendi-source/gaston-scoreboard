@@ -1015,3 +1015,84 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .compact-player-line { font-size: 22px; }
   .compact-row > span, .compact-row > strong { font-size: 30px; }
 }
+
+
+/* Modal pertandingan baru */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(2, 6, 23, .78);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.modal-overlay.is-hidden {
+  display: none;
+}
+
+.modal-card {
+  width: min(560px, 100%);
+  border: 1px solid rgba(124,255,58,.45);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(2,6,23,.94));
+  box-shadow: 0 0 50px rgba(124,255,58,.18), 0 30px 90px rgba(0,0,0,.55);
+  padding: 30px;
+  text-align: center;
+}
+
+.modal-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 99px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 14px;
+  color: #04130a;
+  background: linear-gradient(135deg, var(--green), var(--green-2));
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.modal-card h2 {
+  margin: 0;
+  font-family: Oswald, Inter, sans-serif;
+  font-size: 34px;
+  text-transform: uppercase;
+}
+
+.modal-card p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 12px 0 22px;
+}
+
+.modal-actions {
+  display: grid;
+  gap: 12px;
+}
+
+.modal-btn {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 18px;
+  font-size: 16px;
+}
+
+.ghost-btn {
+  min-height: 52px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.neutral-text {
+  color: var(--muted) !important;
+  opacity: .95;
+}

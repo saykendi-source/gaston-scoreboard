@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=6.0.0" />
+  <link rel="stylesheet" href="css/style.css?v=7.0.0" />
 </head>
 <body class="page-shell admin-page">
   <header class="topbar">
@@ -32,7 +32,7 @@
         <div class="compact-head"><span></span><span>Game 1</span><span>Game 2</span><span>Game 3</span></div>
         <div id="adminRowA" class="compact-row">
           <b class="compact-names">
-            <span id="adminA1Line" class="compact-player-line"><span id="adminPlayerA1">Player A</span></span>
+            <span id="adminA1Line" class="compact-player-line"><span id="adminPlayerA1">TEAM A</span></span>
             <span id="adminA2Line" class="compact-player-line"><span id="adminPlayerA2"></span></span>
           </b>
           <span id="adminGame1A">0</span>
@@ -41,7 +41,7 @@
         </div>
         <div id="adminRowB" class="compact-row">
           <b class="compact-names">
-            <span id="adminB1Line" class="compact-player-line"><span id="adminPlayerB1">Player B</span></span>
+            <span id="adminB1Line" class="compact-player-line"><span id="adminPlayerB1">TEAM B</span></span>
             <span id="adminB2Line" class="compact-player-line"><span id="adminPlayerB2"></span></span>
           </b>
           <span id="adminGame1B">0</span>
@@ -133,6 +133,20 @@
     </section>
   </main>
 
-  <script type="module" src="js/admin.js?v=6.0.0"></script>
+
+  <div id="newMatchModal" class="modal-overlay is-hidden">
+    <div class="modal-card">
+      <div class="modal-icon">✦</div>
+      <h2>Pertandingan Baru</h2>
+      <p>Pilih apakah pertandingan baru memakai nama pemain sebelumnya atau mengosongkan form untuk memasukkan nama baru.</p>
+      <div class="modal-actions">
+        <button id="newMatchUsePrevious" class="primary-btn modal-btn">Gunakan Nama Sebelumnya</button>
+        <button id="newMatchInputNew" class="secondary-btn modal-btn">Masukkan Nama Baru</button>
+        <button id="newMatchCancel" class="ghost-btn modal-btn">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/admin.js?v=7.0.0"></script>
 </body>
 </html>

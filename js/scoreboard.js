@@ -8,7 +8,8 @@ import {
   getMatchType,
   normalizeServer,
   serverTeam,
-  getMatchDurationText
+  getMatchDurationText,
+  isNeutralMatch
 } from "./utils.js";
 
 const courtNumber = getCourtNumber();
@@ -57,8 +58,9 @@ function markServer(server) {
 function renderPlayerNames(data) {
   const matchType = getMatchType(data);
 
-  setText(ids.playerA1, getName(data, "playerA1", "Player A"));
-  setText(ids.playerB1, getName(data, "playerB1", "Player B"));
+  const neutral = isNeutralMatch(data);
+  setText(ids.playerA1, neutral ? "TEAM A" : getName(data, "playerA1", "TEAM A"));
+  setText(ids.playerB1, neutral ? "TEAM B" : getName(data, "playerB1", "TEAM B"));
 
   const a2 = getName(data, "playerA2", "");
   const b2 = getName(data, "playerB2", "");
