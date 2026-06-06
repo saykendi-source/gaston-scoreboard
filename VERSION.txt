@@ -1,2 +1,2 @@
-Gaston Scoreboard v7.0.0
-Changes: neutral admin Match Overview/Match Info support, new match modal with options to use previous names or input new names.
+Gaston Scoreboard v8.0.0
+Fixes: admin JavaScript syntax error, hide player-2 fields in single mode, clear player-2 values in single mode, restore Save Match Info & Start Timer behavior.

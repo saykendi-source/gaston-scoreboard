@@ -94,6 +94,11 @@ function showDoubleFields(matchType) {
   document.querySelectorAll(".double-field, .double-only").forEach(node => {
     node.classList.toggle("is-hidden", !isDouble);
   });
+
+  if (!isDouble) {
+    if (el("inputPlayerA2")) el("inputPlayerA2").value = "";
+    if (el("inputPlayerB2")) el("inputPlayerB2").value = "";
+  }
 }
 
 function getCurrentScores(data) {
@@ -191,9 +196,9 @@ function render(data) {
   setValue("inputRound", data.round || "");
   setValue("inputMatchType", matchType);
   setValue("inputPlayerA1", neutral ? "" : getName(data, "playerA1", ""));
-  setValue("inputPlayerA2", neutral ? "" : a2);
+  setValue("inputPlayerA2", matchType === "double" && !neutral ? a2 : "");
   setValue("inputPlayerB1", neutral ? "" : getName(data, "playerB1", ""));
-  setValue("inputPlayerB2", neutral ? "" : b2);
+  setValue("inputPlayerB2", matchType === "double" && !neutral ? b2 : "");
 
   showDoubleFields(matchType);
   markServer(data);
@@ -328,7 +333,7 @@ el("newMatchInputNew")?.addEventListener("click", async () => {
   alert("Form nama sudah dikosongkan. Silakan masukkan nama baru, lalu klik Save Match Info & Start Timer untuk mulai pertandingan.");
 });
 
-el("finishBtn".addEventListener("click", async () => {
+el("finishBtn").addEventListener("click", async () => {
   if (!confirm("Selesaikan pertandingan ini?")) return;
   saveHistory();
   await update(courtRef, {

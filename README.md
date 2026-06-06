@@ -1,8 +1,8 @@
-# Gaston Scoreboard v7
+# Gaston Scoreboard v8
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
-## Perubahan v7
+## Perubahan v8
 
 - Input logo/bendera dihapus.
 - Tampilan logo/bendera sebelum nama pemain dihapus.
@@ -35,3 +35,11 @@ Upload isi ZIP ini ke root repository, lalu commit. Pastikan file berikut menimp
 - folder `js`
 
 Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
+
+
+## Perbaikan v8
+
+- Memperbaiki error JavaScript pada tombol Finish Match yang membuat script admin berhenti.
+- Pada mode **Tunggal / 1 Nama**, input **Orang 2** otomatis disembunyikan.
+- Saat mode Tunggal dipilih, nilai Orang 2 otomatis dikosongkan.
+- Tombol **Save Match Info & Start Timer** kembali menyimpan nama pemain dan menjalankan timer.
