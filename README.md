@@ -1,4 +1,4 @@
-# Gaston Scoreboard v12
+# Gaston Scoreboard v13
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -80,3 +80,12 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
 - Stabilo score dibuat sama dengan stabilo nama pemain.
 - Ada jarak/pemisah yang jelas antara stabilo nama pemain dan stabilo score.
 - Stabilo score tetap mengikuti game yang sedang dimainkan.
+
+
+## Perubahan v13
+
+- Stabilo score sekarang hanya mengikuti **tim yang sedang mendapat giliran serve**.
+- Jadi pada game yang sedang dimainkan, hanya **satu score** yang distabilo, bukan dua-duanya.
+- Perubahan ini diterapkan pada:
+  - tampilan scoreboard LCD
+  - match overview admin

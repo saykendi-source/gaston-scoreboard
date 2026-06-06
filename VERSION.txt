@@ -1,2 +1,2 @@
-Gaston Scoreboard v12.0.0
-Changes: only the actual serving player's name is highlighted; current game score cells use the same highlighter style; name and score highlights are separated by a visible gap.
+Gaston Scoreboard v13.0.0
+Changes: only the current score of the serving side is highlighted; the opponent's score in the same game is no longer highlighted.

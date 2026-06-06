@@ -57,6 +57,7 @@ function markServer(server) {
 
 function markCurrentGame(currentGame) {
   const game = Number(currentGame || 1);
+  const servingTeam = ids.rowA.classList.contains("serving-team") ? "A" : "B";
 
   [ids.rowA, ids.rowB].forEach(row => {
     row.classList.remove("current-game-1", "current-game-2", "current-game-3");
@@ -67,8 +68,7 @@ function markCurrentGame(currentGame) {
     ids[key]?.classList.remove("current-score");
   });
 
-  ids[`game${game}A`]?.classList.add("current-score");
-  ids[`game${game}B`]?.classList.add("current-score");
+  ids[`game${game}${servingTeam}`]?.classList.add("current-score");
 }
 
 function renderPlayerNames(data) {

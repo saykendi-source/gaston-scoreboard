@@ -143,6 +143,7 @@ function markServer(data) {
 
 function markCurrentGame(data) {
   const game = Number(data?.currentGame || 1);
+  const servingTeam = serverTeam(normalizeServer(data));
 
   ["adminRowA", "adminRowB"].forEach(id => {
     const row = el(id);
@@ -154,8 +155,7 @@ function markCurrentGame(data) {
     el(id)?.classList.remove("compact-current-score");
   });
 
-  el(`adminGame${game}A`)?.classList.add("compact-current-score");
-  el(`adminGame${game}B`)?.classList.add("compact-current-score");
+  el(`adminGame${game}${servingTeam}`)?.classList.add("compact-current-score");
 }
 
 function updateServerButtonNames(data) {
