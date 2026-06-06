@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=18.0.0" />
+  <link rel="stylesheet" href="css/style.css?v=19.0.0" />
 </head>
 <body class="page-shell landing-page">
   <header class="topbar">
@@ -15,14 +15,8 @@
       <div class="brand-logo shuttle-mark"></div>
       <div>
         <h1>GASTON SCOREBOARD</h1>
-        <p>Select Court & View</p>
+        <p>Pilih lapangan dan tampilan</p>
       </div>
-    </div>
-    <div class="top-actions">
-      <span class="live-pill"><span></span> LIVE</span>
-      <button class="icon-btn" title="Broadcast">◉</button>
-      <button class="icon-btn" title="Help">?</button>
-      <button class="icon-btn" title="Settings">⚙</button>
     </div>
   </header>
 
@@ -34,67 +28,24 @@
       <div class="divider"></div>
 
       <div class="section-title"><span>2</span> Choose View</div>
-      <div class="view-grid">
-        <button class="view-card selected" data-view="scoreboard">
-          <div class="view-card-head">
-            <div class="view-icon">▮▮▮</div>
+      <div class="view-grid simple-view-grid">
+        <button class="view-card simple-view-card selected" data-view="scoreboard">
+          <div class="view-card-head simple-view-head">
             <div>
               <h2>Scoreboard</h2>
-              <p>Public match scoreboard view</p>
+              <p>Tampilan layar publik untuk menampilkan skor pertandingan secara live.</p>
             </div>
             <span class="check">✓</span>
-          </div>
-          <div class="mini-preview scoreboard-preview">
-            <div class="mini-header">
-              <b>GASTON SCOREBOARD</b>
-              <span>● LIVE</span>
-            </div>
-            <div class="mini-board">
-              <div class="mini-row">
-                <span>TEAM A</span>
-                <b>0</b><b>0</b><strong>0</strong>
-              </div>
-              <div class="mini-row">
-                <span>TEAM B</span>
-                <b>0</b><b>0</b><strong>0</strong>
-              </div>
-            </div>
-            <div class="mini-info">
-              <span>WAITING</span>
-              <span>GAME 1</span>
-            </div>
           </div>
         </button>
 
-        <button class="view-card" data-view="admin">
-          <div class="view-card-head">
-            <div class="view-icon">👥</div>
+        <button class="view-card simple-view-card" data-view="admin">
+          <div class="view-card-head simple-view-head">
             <div>
               <h2>Admin Panel</h2>
-              <p>Tournament control & management</p>
+              <p>Panel kontrol untuk operator mengatur skor, server, game, dan data pertandingan.</p>
             </div>
             <span class="check">✓</span>
-          </div>
-          <div class="mini-preview admin-preview">
-            <div class="mini-header">
-              <b>ADMIN CONTROL</b>
-              <span>● LIVE</span>
-            </div>
-            <div class="mini-admin">
-              <div class="mini-team">
-                <span>TEAM A</span>
-                <button>+1</button>
-                <button>-1</button>
-              </div>
-              <div class="mini-team">
-                <span>TEAM B</span>
-                <button>+1</button>
-                <button>-1</button>
-              </div>
-            </div>
-            <div class="mini-actions">
-              <span>Undo</span><span>Next</span><span>Finish</span>
-            </div>
           </div>
         </button>
       </div>
@@ -104,31 +55,6 @@
         <button id="resetSelection" class="secondary-btn">↺ Reset Selection</button>
       </div>
     </section>
-
-    <aside class="panel status-panel">
-      <h3>Event Status</h3>
-      <div class="status-item">
-        <span>📅</span>
-        <div><small>Today's Event</small><b id="todayEvent">Final Match Day</b></div>
-      </div>
-      <div class="status-item">
-        <span>🏟</span>
-        <div><small>Active Courts</small><b><em id="activeCourts">6</em> of 6</b></div>
-      </div>
-      <div class="status-item">
-        <span>📡</span>
-        <div><small>Live Matches</small><b id="liveMatches">0</b></div>
-      </div>
-      <div class="status-item">
-        <span>👥</span>
-        <div><small>Total Matches</small><b id="totalMatches">0</b></div>
-      </div>
-      <div class="status-item">
-        <span>🕒</span>
-        <div><small>Event Time</small><b id="eventTime">08:00 - 22:00</b></div>
-      </div>
-      <div class="enjoy-card"><i class="shuttle-icon"></i> <div><b>Enjoy the game!</b><p>Let's play fair & have fun.</p></div></div>
-    </aside>
   </main>
 
   <footer class="footer-strip">
@@ -136,6 +62,6 @@
     <span><i class="shuttle-icon tiny"></i> Thank you for supporting <b>GASTON SCOREBOARD</b></span>
   </footer>
 
-  <script type="module" src="js/landing.js?v=18.0.0"></script>
+  <script type="module" src="js/landing.js?v=19.0.0"></script>
 </body>
 </html>

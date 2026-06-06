@@ -1,4 +1,4 @@
-# Gaston Scoreboard v18
+# Gaston Scoreboard v19
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -142,3 +142,12 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
 - Match Overview admin pada kolom Game 3 juga dibuat netral seperti kolom lain saat tidak aktif.
 - Bagian **Event Status** pada halaman utama dihilangkan.
 - Panel utama halaman awal sekarang melebar penuh.
+
+
+## Perubahan v19
+
+- Menu utama disederhanakan.
+- Ikon LIVE, broadcast, help, dan settings di header halaman utama dihilangkan.
+- Preview besar untuk Scoreboard dan Admin Panel di halaman utama dihilangkan.
+- Pilihan Scoreboard dan Admin Panel sekarang cukup menampilkan judul dan keterangan singkat.
+- Event Status sudah tidak ditampilkan pada halaman utama.

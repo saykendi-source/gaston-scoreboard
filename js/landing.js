@@ -1,5 +1,3 @@
-import { db, ref, onValue } from "./firebase-config.js";
-
 const courts = [1, 2, 3, 4, 5, 6];
 const courtGrid = document.getElementById("courtGrid");
 const openView = document.getElementById("openView");
@@ -31,11 +29,11 @@ function renderCourts() {
 function renderViews() {
   viewCards.forEach(card => {
     card.classList.toggle("selected", card.dataset.view === selectedView);
-    card.addEventListener("click", () => {
+    card.onclick = () => {
       selectedView = card.dataset.view;
       localStorage.setItem("selectedView", selectedView);
       renderViews();
-    });
+    };
   });
 }
 
@@ -51,16 +49,6 @@ resetSelection.addEventListener("click", () => {
   localStorage.setItem("selectedView", selectedView);
   renderCourts();
   renderViews();
-});
-
-onValue(ref(db, "event"), snapshot => {
-  const event = snapshot.val();
-  if (!event) return;
-  document.getElementById("todayEvent").textContent = event.todayEvent || "Final Match Day";
-  document.getElementById("activeCourts").textContent = event.activeCourts ?? 6;
-  document.getElementById("liveMatches").textContent = event.liveMatches ?? 0;
-  document.getElementById("totalMatches").textContent = event.totalMatches ?? 0;
-  document.getElementById("eventTime").textContent = event.eventTime || "08:00 - 22:00";
 });
 
 renderCourts();

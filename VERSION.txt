@@ -1,2 +1,2 @@
-Gaston Scoreboard v18.0.0
-Changes: removed default Game 3 tint on scoreboard/admin overview and hid the Event Status section on the landing page.
+Gaston Scoreboard v19.0.0
+Changes: simplified landing page, removed top action icons and preview panels, and kept only concise Scoreboard/Admin choices.

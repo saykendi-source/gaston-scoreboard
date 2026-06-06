@@ -2117,3 +2117,74 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .selection-panel {
   width: 100%;
 }
+
+
+/* =========================
+   v19: simpler landing page
+   ========================= */
+.topbar {
+  justify-content: flex-start !important;
+}
+
+.landing-layout {
+  grid-template-columns: 1fr !important;
+}
+
+.simple-view-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.simple-view-card {
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  padding: 26px 28px;
+}
+
+.simple-view-head {
+  width: 100%;
+  margin-bottom: 0 !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.simple-view-card h2 {
+  margin: 0;
+  font-size: 34px;
+}
+
+.simple-view-card p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+/* Hide the old mini preview content if any remains */
+.simple-view-card .view-icon,
+.simple-view-card .mini-preview,
+.top-actions,
+.status-panel {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .simple-view-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .simple-view-card {
+    min-height: 140px;
+    padding: 22px;
+  }
+
+  .simple-view-card h2 {
+    font-size: 30px;
+  }
+
+  .simple-view-card p {
+    font-size: 15px;
+  }
+}
