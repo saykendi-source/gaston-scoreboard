@@ -2188,3 +2188,194 @@ button, a { -webkit-tap-highlight-color: transparent; }
     font-size: 15px;
   }
 }
+
+
+/* =========================
+   v20: Admin order + mobile header cleanup + compact score controls
+   ========================= */
+
+/* Desktop admin layout: Match Info appears first */
+.admin-grid {
+  grid-template-columns: 0.92fr 1.08fr !important;
+}
+
+.match-form {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+}
+
+.match-overview {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+}
+
+.score-control {
+  grid-column: 2 !important;
+  grid-row: 1 / span 2 !important;
+}
+
+.match-actions {
+  grid-column: 1 / span 2 !important;
+  grid-row: 3 !important;
+}
+
+.status-info {
+  grid-column: 1 / span 2 !important;
+  grid-row: 4 !important;
+}
+
+/* Score Control dibuat lebih ringkas tapi tetap nyaman */
+.score-control {
+  padding: 18px !important;
+}
+
+.score-control .section-title {
+  margin-bottom: 14px;
+}
+
+.control-cards {
+  gap: 14px !important;
+}
+
+.control-card {
+  padding: 16px !important;
+  border-radius: 16px !important;
+}
+
+.control-card h2 {
+  margin-bottom: 14px !important;
+  font-size: 22px !important;
+  line-height: 1.15;
+}
+
+.score-btn {
+  height: 60px !important;
+  font-size: 36px !important;
+  border-radius: 12px !important;
+  margin-bottom: 10px !important;
+}
+
+.server-select {
+  margin-top: 8px !important;
+  padding-top: 12px !important;
+}
+
+.server-select small {
+  font-size: 12px !important;
+  margin-bottom: 8px !important;
+}
+
+.server-person-btn {
+  min-height: 42px !important;
+  padding: 7px 12px !important;
+  font-size: 13px !important;
+  margin-top: 7px !important;
+}
+
+/* Mobile admin: hide header right controls, because Menu Utama / Fullscreen already exist in Match Actions */
+@media (max-width: 1100px) {
+  .admin-page .top-actions {
+    display: none !important;
+  }
+
+  .admin-page .topbar {
+    justify-content: flex-start !important;
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .match-form,
+  .match-overview,
+  .score-control,
+  .match-actions,
+  .status-info {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .admin-grid .panel {
+    padding: 16px !important;
+  }
+
+  /* Score Control tetap dua kolom agar tidak terlalu tinggi di HP */
+  .score-control .control-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .score-control {
+    padding: 14px !important;
+  }
+
+  .control-card {
+    padding: 12px !important;
+    border-radius: 14px !important;
+  }
+
+  .control-card h2 {
+    font-size: 17px !important;
+    margin-bottom: 10px !important;
+    min-height: 38px;
+    overflow-wrap: anywhere;
+  }
+
+  .score-btn {
+    height: 52px !important;
+    font-size: 30px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .server-select {
+    margin-top: 8px !important;
+    padding-top: 10px !important;
+  }
+
+  .server-select small {
+    font-size: 10px !important;
+    letter-spacing: .2px;
+  }
+
+  .server-person-btn {
+    min-height: 38px !important;
+    font-size: 11px !important;
+    padding: 6px 8px !important;
+    border-radius: 10px !important;
+  }
+
+  .server-person-btn.active::before {
+    width: 16px !important;
+    height: 13px !important;
+    margin-right: 5px !important;
+  }
+
+  .score-control .section-title {
+    font-size: 22px !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .score-control .control-cards {
+    gap: 8px !important;
+  }
+
+  .control-card {
+    padding: 10px !important;
+  }
+
+  .control-card h2 {
+    font-size: 15px !important;
+  }
+
+  .score-btn {
+    height: 48px !important;
+    font-size: 28px !important;
+  }
+
+  .server-person-btn {
+    min-height: 36px !important;
+    font-size: 10.5px !important;
+  }
+}

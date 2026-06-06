@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=19.0.0" />
+  <link rel="stylesheet" href="css/style.css?v=20.0.0" />
 </head>
 <body class="page-shell admin-page">
   <header class="topbar">
@@ -26,111 +26,111 @@
   </header>
 
   <main class="admin-grid">
-    <section class="panel match-overview">
-      <div class="section-title"><span>1</span> Match Overview</div>
-      <div class="compact-score">
-        <div class="compact-head"><span></span><span>Game 1</span><span>Game 2</span><span>Game 3</span></div>
-        <div id="adminRowA" class="compact-row">
-          <b class="compact-names">
-            <span id="adminA1Line" class="compact-player-line"><span id="adminPlayerA1">TEAM A</span></span>
-            <span id="adminA2Line" class="compact-player-line"><span id="adminPlayerA2"></span></span>
-          </b>
-          <span id="adminGame1A">0</span>
-          <span id="adminGame2A">0</span>
-          <strong id="adminGame3A">0</strong>
-        </div>
-        <div id="adminRowB" class="compact-row">
-          <b class="compact-names">
-            <span id="adminB1Line" class="compact-player-line"><span id="adminPlayerB1">TEAM B</span></span>
-            <span id="adminB2Line" class="compact-player-line"><span id="adminPlayerB2"></span></span>
-          </b>
-          <span id="adminGame1B">0</span>
-          <span id="adminGame2B">0</span>
-          <strong id="adminGame3B">0</strong>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel score-control">
-      <div class="section-title"><span>2</span> Score Control</div>
-      <div class="control-cards">
-        <div class="control-card" id="controlA">
-          <h2 id="controlNameA">Team A</h2>
-          <button class="score-btn plus" data-action="add" data-player="A">+1</button>
-          <button class="score-btn minus" data-action="minus" data-player="A">-1</button>
-          <div class="server-select">
-            <small>Server Tim A</small>
-            <button class="server-person-btn" data-server="A1"><span id="serverBtnA1">Pemain 1</span></button>
-            <button class="server-person-btn double-only" data-server="A2"><span id="serverBtnA2">Pemain 2</span></button>
-          </div>
-        </div>
-        <div class="control-card" id="controlB">
-          <h2 id="controlNameB">Team B</h2>
-          <button class="score-btn plus" data-action="add" data-player="B">+1</button>
-          <button class="score-btn minus" data-action="minus" data-player="B">-1</button>
-          <div class="server-select">
-            <small>Server Tim B</small>
-            <button class="server-person-btn" data-server="B1"><span id="serverBtnB1">Pemain 1</span></button>
-            <button class="server-person-btn double-only" data-server="B2"><span id="serverBtnB2">Pemain 2</span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel match-actions">
-      <div class="section-title"><span>3</span> Match Actions</div>
-      <div class="action-grid">
-        <a class="action-link" href="index.html">⌂<span>Menu Utama</span></a>
-        <button id="undoBtn">↩<span>Undo</span></button>
-        <button id="resetRallyBtn"><i class="shuttle-icon"></i><span>Reset Rally</span></button>
-        <button id="nextGameBtn">▶▶<span>Next Game</span></button>
-        <button id="newMatchBtn" class="success">✦<span>Pertandingan Baru</span></button>
-        <button id="finishBtn" class="danger">🏁<span>Finish Match</span></button>
-        <button id="adminFullscreenBtn">⛶<span>Fullscreen</span></button>
-      </div>
-    </section>
-
-    <section class="panel status-info">
-      <div class="section-title"><span>4</span> Status / Info</div>
-      <div class="info-grid">
-        <div class="info-card small">
-          <div class="round-icon yellow">◎</div>
-          <div><small>Status</small><b id="adminStatus">Live</b></div>
-        </div>
-        <div class="info-card small">
-          <div class="round-icon blue">▮</div>
-          <div><small>Current Game</small><b id="adminCurrentGame">1</b></div>
-        </div>
-        <div class="info-card small">
-          <div class="round-icon purple">◷</div>
-          <div><small>Match Time</small><b id="adminTimer">00:00:00</b></div>
-        </div>
-        <div class="info-card small">
-          <div class="round-icon green-bg"><i class="shuttle-icon tiny"></i></div>
-          <div><small>Server</small><b id="adminServer">A1</b></div>
-        </div>
-      </div>
-    </section>
-
     <section class="panel match-form">
-      <div class="section-title"><span>5</span> Match Info</div>
-      <div class="form-grid">
-        <label>Nama Event<input id="inputTournament" type="text" /></label>
-        <label>Babak<input id="inputRound" type="text" /></label>
-        <label>Jenis Pertandingan
-          <select id="inputMatchType">
-            <option value="single">Tunggal / 1 Nama</option>
-            <option value="double">Ganda / 2 Nama</option>
-          </select>
-        </label>
-        <label>Pemain Tim A - Orang 1<input id="inputPlayerA1" type="text" /></label>
-        <label class="double-field is-hidden">Pemain Tim A - Orang 2<input id="inputPlayerA2" type="text" /></label>
-        <label>Pemain Tim B - Orang 1<input id="inputPlayerB1" type="text" /></label>
-        <label class="double-field is-hidden">Pemain Tim B - Orang 2<input id="inputPlayerB2" type="text" /></label>
-      </div>
-      <button id="saveMatchInfo" class="primary-btn full">Save Match Info & Start Timer</button>
-      <p class="form-note">Untuk memulai pertandingan baru di court ini, isi nama pemain lalu klik <b>Pertandingan Baru</b>. Tombol tersebut akan reset skor, kembali ke Game 1, dan mulai timer dari 00:00:00.</p>
-    </section>
+          <div class="section-title"><span>1</span> Match Info</div>
+          <div class="form-grid">
+            <label>Nama Event<input id="inputTournament" type="text" /></label>
+            <label>Babak<input id="inputRound" type="text" /></label>
+            <label>Jenis Pertandingan
+              <select id="inputMatchType">
+                <option value="single">Tunggal / 1 Nama</option>
+                <option value="double">Ganda / 2 Nama</option>
+              </select>
+            </label>
+            <label>Pemain Tim A - Orang 1<input id="inputPlayerA1" type="text" /></label>
+            <label class="double-field is-hidden">Pemain Tim A - Orang 2<input id="inputPlayerA2" type="text" /></label>
+            <label>Pemain Tim B - Orang 1<input id="inputPlayerB1" type="text" /></label>
+            <label class="double-field is-hidden">Pemain Tim B - Orang 2<input id="inputPlayerB2" type="text" /></label>
+          </div>
+          <button id="saveMatchInfo" class="primary-btn full">Save Match Info & Start Timer</button>
+          <p class="form-note">Untuk memulai pertandingan baru di court ini, isi nama pemain lalu klik <b>Pertandingan Baru</b>. Tombol tersebut akan reset skor, kembali ke Game 1, dan mulai timer dari 00:00:00.</p>
+        </section>
+    
+    <section class="panel match-overview">
+          <div class="section-title"><span>2</span> Match Overview</div>
+          <div class="compact-score">
+            <div class="compact-head"><span></span><span>Game 1</span><span>Game 2</span><span>Game 3</span></div>
+            <div id="adminRowA" class="compact-row">
+              <b class="compact-names">
+                <span id="adminA1Line" class="compact-player-line"><span id="adminPlayerA1">TEAM A</span></span>
+                <span id="adminA2Line" class="compact-player-line"><span id="adminPlayerA2"></span></span>
+              </b>
+              <span id="adminGame1A">0</span>
+              <span id="adminGame2A">0</span>
+              <strong id="adminGame3A">0</strong>
+            </div>
+            <div id="adminRowB" class="compact-row">
+              <b class="compact-names">
+                <span id="adminB1Line" class="compact-player-line"><span id="adminPlayerB1">TEAM B</span></span>
+                <span id="adminB2Line" class="compact-player-line"><span id="adminPlayerB2"></span></span>
+              </b>
+              <span id="adminGame1B">0</span>
+              <span id="adminGame2B">0</span>
+              <strong id="adminGame3B">0</strong>
+            </div>
+          </div>
+        </section>
+    
+    <section class="panel score-control">
+          <div class="section-title"><span>3</span> Score Control</div>
+          <div class="control-cards">
+            <div class="control-card" id="controlA">
+              <h2 id="controlNameA">Team A</h2>
+              <button class="score-btn plus" data-action="add" data-player="A">+1</button>
+              <button class="score-btn minus" data-action="minus" data-player="A">-1</button>
+              <div class="server-select">
+                <small>Server Tim A</small>
+                <button class="server-person-btn" data-server="A1"><span id="serverBtnA1">Pemain 1</span></button>
+                <button class="server-person-btn double-only" data-server="A2"><span id="serverBtnA2">Pemain 2</span></button>
+              </div>
+            </div>
+            <div class="control-card" id="controlB">
+              <h2 id="controlNameB">Team B</h2>
+              <button class="score-btn plus" data-action="add" data-player="B">+1</button>
+              <button class="score-btn minus" data-action="minus" data-player="B">-1</button>
+              <div class="server-select">
+                <small>Server Tim B</small>
+                <button class="server-person-btn" data-server="B1"><span id="serverBtnB1">Pemain 1</span></button>
+                <button class="server-person-btn double-only" data-server="B2"><span id="serverBtnB2">Pemain 2</span></button>
+              </div>
+            </div>
+          </div>
+        </section>
+    
+    <section class="panel match-actions">
+          <div class="section-title"><span>4</span> Match Actions</div>
+          <div class="action-grid">
+            <a class="action-link" href="index.html">⌂<span>Menu Utama</span></a>
+            <button id="undoBtn">↩<span>Undo</span></button>
+            <button id="resetRallyBtn"><i class="shuttle-icon"></i><span>Reset Rally</span></button>
+            <button id="nextGameBtn">▶▶<span>Next Game</span></button>
+            <button id="newMatchBtn" class="success">✦<span>Pertandingan Baru</span></button>
+            <button id="finishBtn" class="danger">🏁<span>Finish Match</span></button>
+            <button id="adminFullscreenBtn">⛶<span>Fullscreen</span></button>
+          </div>
+        </section>
+    
+    <section class="panel status-info">
+          <div class="section-title"><span>5</span> Status / Info</div>
+          <div class="info-grid">
+            <div class="info-card small">
+              <div class="round-icon yellow">◎</div>
+              <div><small>Status</small><b id="adminStatus">Live</b></div>
+            </div>
+            <div class="info-card small">
+              <div class="round-icon blue">▮</div>
+              <div><small>Current Game</small><b id="adminCurrentGame">1</b></div>
+            </div>
+            <div class="info-card small">
+              <div class="round-icon purple">◷</div>
+              <div><small>Match Time</small><b id="adminTimer">00:00:00</b></div>
+            </div>
+            <div class="info-card small">
+              <div class="round-icon green-bg"><i class="shuttle-icon tiny"></i></div>
+              <div><small>Server</small><b id="adminServer">A1</b></div>
+            </div>
+          </div>
+        </section>
   </main>
 
 
@@ -147,6 +147,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/admin.js?v=19.0.0"></script>
+  <script type="module" src="js/admin.js?v=20.0.0"></script>
 </body>
 </html>

@@ -1,2 +1,2 @@
-Gaston Scoreboard v19.0.0
-Changes: simplified landing page, removed top action icons and preview panels, and kept only concise Scoreboard/Admin choices.
+Gaston Scoreboard v20.0.0
+Changes: Admin Match Info moved first; mobile admin header right controls hidden; Score Control made more compact and phone-friendly.
