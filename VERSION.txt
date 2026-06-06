@@ -1,2 +1,2 @@
-Gaston Scoreboard v22.0.0
-Changes: polished Admin Panel layout for laptop and phone; compact score controls with side-by-side scoring buttons and cleaner action buttons.
+Gaston Scoreboard v23.0.0
+Changes: official doubles serving logic using right/left player positions, position swapping when serving side wins, receiver-side server selection by score parity, and manual server position alignment.
