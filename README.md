@@ -1,4 +1,4 @@
-# Gaston Scoreboard v8
+# Gaston Scoreboard v9
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -37,9 +37,20 @@ Upload isi ZIP ini ke root repository, lalu commit. Pastikan file berikut menimp
 Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
 
 
-## Perbaikan v8
+## Perbaikan v9
 
 - Memperbaiki error JavaScript pada tombol Finish Match yang membuat script admin berhenti.
 - Pada mode **Tunggal / 1 Nama**, input **Orang 2** otomatis disembunyikan.
 - Saat mode Tunggal dipilih, nilai Orang 2 otomatis dikosongkan.
 - Tombol **Save Match Info & Start Timer** kembali menyimpan nama pemain dan menjalankan timer.
+
+
+## Perubahan v9
+
+- Server otomatis berpindah ketika poin didapat oleh tim lawan.
+- Jika tim yang sedang serve mendapat poin, server tetap orang yang sama.
+- Untuk pertandingan tunggal, perpindahan server otomatis ke orang 1 tim lawan.
+- Untuk pertandingan ganda, ketika service berpindah ke lawan:
+  - skor tim baru genap → orang 1 menjadi server
+  - skor tim baru ganjil → orang 2 menjadi server
+- Tombol pilihan server manual tetap tersedia untuk koreksi cepat oleh admin.

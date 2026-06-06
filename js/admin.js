@@ -149,6 +149,30 @@ function updateServerButtonNames(data) {
   setText("serverBtnB2", neutral ? "Pemain B2" : getName(data, "playerB2", "Pemain B2"));
 }
 
+
+function getServerAfterPoint(data, pointWinner, nextScoreForWinner) {
+  const currentServer = normalizeServer(data);
+  const currentServerTeam = serverTeam(currentServer);
+  const matchType = getMatchType(data);
+
+  // Jika poin dimenangkan oleh tim yang sedang serve,
+  // server tetap orang yang sama.
+  if (pointWinner === currentServerTeam) {
+    return currentServer;
+  }
+
+  // Jika poin dimenangkan oleh lawan, service pindah ke tim lawan.
+  // Untuk tunggal, otomatis ke orang 1.
+  if (matchType !== "double") {
+    return `${pointWinner}1`;
+  }
+
+  // Untuk ganda, orang yang serve ditentukan dari skor tim setelah mendapat poin:
+  // skor genap -> orang 1, skor ganjil -> orang 2.
+  const serverOrder = nextScoreForWinner % 2 === 0 ? "1" : "2";
+  return `${pointWinner}${serverOrder}`;
+}
+
 function updateTimer() {
   setText("adminTimer", getMatchDurationText(currentData));
 }
@@ -225,13 +249,18 @@ async function updateScore(player, delta) {
     [player]: nextScore
   };
 
+  const nextServer = delta > 0
+    ? getServerAfterPoint(data, player, nextScore)
+    : normalizeServer(data);
+
   const nextData = {
     ...data,
     scores: {
       ...(data.scores || {}),
       [gameKey]: nextScoresForGame
     },
-    matchStatus: "live"
+    server: nextServer,
+    matchStatus: data.matchStartAt ? "live" : "waiting"
   };
 
   await update(ref(db, `${courtPath(courtNumber)}/scores/${gameKey}`), {
@@ -239,8 +268,9 @@ async function updateScore(player, delta) {
   });
 
   await update(courtRef, {
+    server: nextServer,
     status: calculateStatus(nextData),
-    matchStatus: "live"
+    matchStatus: data.matchStartAt ? "live" : "waiting"
   });
 }
 

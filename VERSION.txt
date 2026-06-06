@@ -1,2 +1,2 @@
-Gaston Scoreboard v8.0.0
-Fixes: admin JavaScript syntax error, hide player-2 fields in single mode, clear player-2 values in single mode, restore Save Match Info & Start Timer behavior.
+Gaston Scoreboard v9.0.0
+Changes: automatic server transfer when receiver wins a point; doubles server person is selected by the winning side's score parity; manual server override remains available.
