@@ -2068,3 +2068,52 @@ button, a { -webkit-tap-highlight-color: transparent; }
   background: linear-gradient(135deg, rgba(53,212,110,.92), rgba(132,239,168,.96)) !important;
   box-shadow: inset 0 0 18px rgba(255,255,255,.10), 0 0 12px rgba(53,212,110,.18) !important;
 }
+
+
+/* =========================
+   v18: remove default Game 3 tint and hide Event Status panel
+   ========================= */
+
+/* Halaman utama: hilangkan Event Status dan buat panel utama penuh */
+.landing-layout {
+  grid-template-columns: 1fr !important;
+}
+
+.status-panel {
+  display: none !important;
+}
+
+/* Scoreboard: Game 3 default harus sama netral seperti Game 2
+   (tanpa highlight tipis, angka putih, latar hitam) */
+.score-cell.active {
+  color: #f8fafc !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Jika cell active juga sedang current-score, tetap gunakan highlight current-score */
+.score-cell.active.current-score {
+  box-shadow: inherit;
+}
+
+/* Admin Match Overview: Game 3 default netral seperti kolom lain */
+.compact-row strong {
+  color: #f8fafc !important;
+  min-height: 112px;
+  display: grid;
+  place-items: center;
+  border-left: 1px solid var(--line) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Jika strong/current score aktif, tetap boleh terkena highlight current-score */
+.compact-row strong.compact-current-score {
+  background: inherit;
+  box-shadow: inherit;
+}
+
+/* Sedikit rapikan lebar panel utama sesudah Event Status dihilangkan */
+.selection-panel {
+  width: 100%;
+}

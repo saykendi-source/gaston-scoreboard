@@ -1,2 +1,2 @@
-Gaston Scoreboard v17.0.0
-Changes: brighter yellow and green, improved admin/scoreboard color consistency, and fixed admin Match Overview highlighted text readability.
+Gaston Scoreboard v18.0.0
+Changes: removed default Game 3 tint on scoreboard/admin overview and hid the Event Status section on the landing page.
