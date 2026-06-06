@@ -2379,3 +2379,89 @@ button, a { -webkit-tap-highlight-color: transparent; }
     font-size: 10.5px !important;
   }
 }
+
+
+/* =========================
+   v21: cleaner admin actions + remove unnecessary info panels
+   ========================= */
+
+/* Admin Match Actions: text only, more compact */
+.action-grid button,
+.action-link {
+  min-height: 74px !important;
+  font-size: 16px !important;
+  font-weight: 900;
+  padding: 10px 12px !important;
+}
+
+.action-grid button span,
+.action-link span {
+  margin-top: 0 !important;
+  font-size: 15px !important;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Remove large icon-centered appearance */
+.action-grid button,
+.action-link {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hide Admin Status / Info section */
+.admin-page .status-info {
+  display: none !important;
+}
+
+/* Re-pack admin layout now that status/info is hidden */
+.match-actions {
+  grid-column: 1 / span 2 !important;
+  grid-row: 3 !important;
+}
+
+/* Scoreboard: hide Status, Current Game, Match Time */
+.scoreboard-hide-info {
+  display: none !important;
+}
+
+/* Keep only Server card and center it nicely */
+.score-info {
+  justify-content: center !important;
+}
+
+.score-info .info-card:last-child {
+  min-width: 320px;
+}
+
+/* Mobile tuning */
+@media (max-width: 1100px) {
+  .action-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .action-grid button,
+  .action-link {
+    min-height: 56px !important;
+    border-radius: 12px !important;
+    padding: 8px 10px !important;
+  }
+
+  .action-grid button span,
+  .action-link span {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .action-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .score-info .info-card:last-child {
+    min-width: 0;
+    width: 100%;
+  }
+}

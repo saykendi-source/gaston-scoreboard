@@ -1,4 +1,4 @@
-# Gaston Scoreboard v20
+# Gaston Scoreboard v21
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -162,3 +162,14 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
   - tombol +1 dan -1 lebih kecil
   - card tim lebih hemat ruang
   - pada HP tetap nyaman digunakan dengan dua kolom kontrol.
+
+
+## Perubahan v21
+
+### Admin Panel
+- Tombol pada **Match Actions** dibuat **teks saja** tanpa ikon agar lebih hemat ruang.
+- Bagian **Status / Info** disembunyikan karena tidak terlalu diperlukan.
+
+### Scoreboard
+- Informasi **Status**, **Current Game**, dan **Match Time** disembunyikan.
+- Bagian info di bawah scoreboard sekarang hanya menyisakan **Server**.
