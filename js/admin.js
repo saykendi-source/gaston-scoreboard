@@ -71,12 +71,12 @@ async function resetCourtForNewMatch(names, neutral = false) {
     neutral,
     currentGame: 1,
     server: "A1",
+    servicePositions: defaultServicePositions(),
     status: "Waiting",
     matchStatus: "waiting",
     matchStartAt: null,
     matchEndAt: null,
-    scores: emptyScores(),
-    positions: initialPositions()
+    scores: emptyScores()
   });
 }
 
@@ -168,97 +168,124 @@ function updateServerButtonNames(data) {
 }
 
 
-function initialPositions() {
+function defaultServicePositions() {
   return {
     A: { right: "A1", left: "A2" },
     B: { right: "B1", left: "B2" }
   };
 }
 
-function ensurePositions(data) {
-  const defaults = initialPositions();
+function cloneServicePositions(data) {
+  const positions = data?.servicePositions || defaultServicePositions();
 
   return {
     A: {
-      right: data?.positions?.A?.right || defaults.A.right,
-      left: data?.positions?.A?.left || defaults.A.left
+      right: positions?.A?.right || "A1",
+      left: positions?.A?.left || "A2"
     },
     B: {
-      right: data?.positions?.B?.right || defaults.B.right,
-      left: data?.positions?.B?.left || defaults.B.left
+      right: positions?.B?.right || "B1",
+      left: positions?.B?.left || "B2"
     }
   };
 }
 
-function otherPlayer(server) {
-  const team = serverTeam(server);
-  const order = String(server).endsWith("2") ? "1" : "2";
-  return `${team}${order}`;
+function teammateOf(playerKey) {
+  if (playerKey === "A1") return "A2";
+  if (playerKey === "A2") return "A1";
+  if (playerKey === "B1") return "B2";
+  if (playerKey === "B2") return "B1";
+  return playerKey.startsWith("B") ? "B1" : "A1";
 }
 
-function swapTeamPositions(positions, team) {
-  return {
-    ...positions,
-    [team]: {
-      right: positions[team].left,
-      left: positions[team].right
-    }
-  };
-}
-
-function alignPositionsForManualServer(data, selectedServer) {
-  const positions = ensurePositions(data);
-  const team = serverTeam(selectedServer);
+function teamScoreForCurrentGame(data, team) {
   const gameKey = getCurrentGameKey(data);
-  const teamScore = safeScore(data?.scores?.[gameKey]?.[team]);
-  const serviceCourt = teamScore % 2 === 0 ? "right" : "left";
-  const otherCourt = serviceCourt === "right" ? "left" : "right";
-
-  return {
-    ...positions,
-    [team]: {
-      ...positions[team],
-      [serviceCourt]: selectedServer,
-      [otherCourt]: otherPlayer(selectedServer)
-    }
-  };
+  return safeScore(data?.scores?.[gameKey]?.[team]);
 }
 
-function getRallyUpdate(data, pointWinner, nextScoreForWinner) {
+function requiredServiceCourt(score) {
+  return safeScore(score) % 2 === 0 ? "right" : "left";
+}
+
+function oppositeCourt(court) {
+  return court === "right" ? "left" : "right";
+}
+
+function playerAtCourt(positions, team, court) {
+  return positions?.[team]?.[court] || `${team}1`;
+}
+
+function setPlayerCourt(positions, playerKey, court) {
+  const team = serverTeam(playerKey);
+  const other = teammateOf(playerKey);
+
+  positions[team] = {
+    [court]: playerKey,
+    [oppositeCourt(court)]: other
+  };
+
+  return positions;
+}
+
+function swapTeamCourts(positions, team) {
+  positions[team] = {
+    right: positions?.[team]?.left || `${team}2`,
+    left: positions?.[team]?.right || `${team}1`
+  };
+
+  return positions;
+}
+
+function getServerAndPositionsAfterPoint(data, pointWinner, nextScoreForWinner) {
   const matchType = getMatchType(data);
   const currentServer = normalizeServer(data);
-  const currentServerTeam = serverTeam(currentServer);
 
+  // Tunggal: pemenang rally langsung menjadi server.
   if (matchType !== "double") {
-    const nextServer = pointWinner === currentServerTeam ? currentServer : `${pointWinner}1`;
     return {
-      server: nextServer,
-      positions: data?.positions || initialPositions()
+      nextServer: `${pointWinner}1`,
+      nextPositions: cloneServicePositions(data)
     };
   }
 
-  let positions = ensurePositions(data);
-  let nextServer = currentServer;
+  const currentServerTeam = serverTeam(currentServer);
+  const nextPositions = cloneServicePositions(data);
 
+  // Jika tim yang sedang serve mendapat poin:
+  // pemain server tetap sama, tetapi pasangan pada tim tersebut bertukar court.
   if (pointWinner === currentServerTeam) {
-    // Ganda resmi:
-    // Jika tim yang sedang serve menang reli, server tetap orang yang sama,
-    // tetapi pasangan pada tim tersebut bertukar posisi kiri/kanan.
-    positions = swapTeamPositions(positions, pointWinner);
-    nextServer = currentServer;
-  } else {
-    // Jika penerima menang reli, service berpindah ke tim penerima.
-    // Posisi pemain tidak ditukar. Server baru adalah pemain yang sedang
-    // berada pada court sesuai skor baru tim tersebut:
-    // skor genap -> kanan, skor ganjil -> kiri.
-    const serviceCourt = nextScoreForWinner % 2 === 0 ? "right" : "left";
-    nextServer = positions[pointWinner]?.[serviceCourt] || `${pointWinner}1`;
+    swapTeamCourts(nextPositions, pointWinner);
+
+    return {
+      nextServer: currentServer,
+      nextPositions
+    };
   }
 
+  // Jika receiver mendapat poin:
+  // tidak ada pemain yang bertukar court.
+  // Server baru adalah pemain dari tim pemenang yang berada pada court sesuai skor timnya.
+  const court = requiredServiceCourt(nextScoreForWinner);
+
   return {
-    server: nextServer,
-    positions
+    nextServer: playerAtCourt(nextPositions, pointWinner, court),
+    nextPositions
   };
+}
+
+function getPositionsForManualServer(data, selectedServer) {
+  const matchType = getMatchType(data);
+  const positions = cloneServicePositions(data);
+
+  if (matchType !== "double") {
+    return positions;
+  }
+
+  const team = serverTeam(selectedServer);
+  const score = teamScoreForCurrentGame(data, team);
+  const court = requiredServiceCourt(score);
+
+  return setPlayerCourt(positions, selectedServer, court);
 }
 
 function updateTimer() {
@@ -338,11 +365,11 @@ async function updateScore(player, delta) {
     [player]: nextScore
   };
 
-  const rallyUpdate = delta > 0
-    ? getRallyUpdate(data, player, nextScore)
+  const { nextServer, nextPositions } = delta > 0
+    ? getServerAndPositionsAfterPoint(data, player, nextScore)
     : {
-        server: normalizeServer(data),
-        positions: data?.positions || initialPositions()
+        nextServer: normalizeServer(data),
+        nextPositions: cloneServicePositions(data)
       };
 
   const nextData = {
@@ -351,8 +378,8 @@ async function updateScore(player, delta) {
       ...(data.scores || {}),
       [gameKey]: nextScoresForGame
     },
-    server: rallyUpdate.server,
-    positions: rallyUpdate.positions,
+    server: nextServer,
+    servicePositions: nextPositions,
     matchStatus: data.matchStartAt ? "live" : "waiting"
   };
 
@@ -361,8 +388,8 @@ async function updateScore(player, delta) {
   });
 
   await update(courtRef, {
-    server: rallyUpdate.server,
-    positions: rallyUpdate.positions,
+    server: nextServer,
+    servicePositions: nextPositions,
     status: calculateStatus(nextData),
     matchStatus: data.matchStartAt ? "live" : "waiting"
   });
@@ -380,12 +407,14 @@ document.querySelectorAll(".server-person-btn").forEach(button => {
   button.addEventListener("click", async () => {
     const data = await refreshCurrentData();
     if (!data) return;
-    saveHistory();
 
     const selectedServer = button.dataset.server;
+    const nextPositions = getPositionsForManualServer(data, selectedServer);
+
+    saveHistory();
     await update(courtRef, {
       server: selectedServer,
-      positions: alignPositionsForManualServer(data, selectedServer)
+      servicePositions: nextPositions
     });
   });
 });
@@ -407,8 +436,10 @@ el("resetRallyBtn").addEventListener("click", async () => {
   const gameKey = getCurrentGameKey(data);
   await update(ref(db, `${courtPath(courtNumber)}/scores/${gameKey}`), { A: 0, B: 0 });
   await update(courtRef, {
-    status: data.matchStartAt ? "Live" : "Waiting",
-    matchStatus: data.matchStartAt ? "live" : "waiting"
+    server: "A1",
+    servicePositions: defaultServicePositions(),
+    status: "Live",
+    matchStatus: "live"
   });
 });
 
@@ -422,14 +453,14 @@ el("nextGameBtn").addEventListener("click", async () => {
   }
 
   const nextGame = currentGame + 1;
-  const ok = confirm(`Pindah ke Game ${nextGame}?\n\nServe akan dimulai lagi dari Tim A - Orang 1 dan posisi ganda kembali ke posisi awal.`);
+  const ok = confirm(`Pindah ke Game ${nextGame}?\n\nServe akan dimulai lagi dari Tim A - Orang 1.`);
   if (!ok) return;
 
   saveHistory();
   await update(courtRef, {
     currentGame: nextGame,
     server: "A1",
-    positions: initialPositions(),
+    servicePositions: defaultServicePositions(),
     status: "Live",
     matchStatus: "live"
   });
@@ -525,7 +556,7 @@ el("saveMatchInfo").addEventListener("click", async () => {
     playerB: playerB2 ? `${playerB1} / ${playerB2}` : playerB1,
     neutral: false,
     server: "A1",
-    positions: initialPositions(),
+    servicePositions: defaultServicePositions(),
     matchStartAt: Date.now(),
     matchEndAt: null,
     status: "Live",

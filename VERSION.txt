@@ -1,2 +1,2 @@
-Gaston Scoreboard v23.0.0
-Changes: official doubles serving logic using right/left player positions, position swapping when serving side wins, receiver-side server selection by score parity, and manual server position alignment.
+Gaston Scoreboard v22.0.0
+Changes: Corrected doubles serve rotation by tracking service court positions. Serving side swaps courts only after winning a point on serve; receiving side becomes new serving side without swapping courts.
