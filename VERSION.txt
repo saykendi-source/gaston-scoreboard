@@ -1,2 +1,2 @@
-Gaston Scoreboard v22.0.0
-Changes: Corrected doubles serve rotation by tracking service court positions. Serving side swaps courts only after winning a point on serve; receiving side becomes new serving side without swapping courts.
+Gaston Scoreboard v23.0.0
+Visuals restored to v21. Only doubles serve logic is updated.

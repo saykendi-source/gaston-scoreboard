@@ -240,7 +240,6 @@ function getServerAndPositionsAfterPoint(data, pointWinner, nextScoreForWinner) 
   const matchType = getMatchType(data);
   const currentServer = normalizeServer(data);
 
-  // Tunggal: pemenang rally langsung menjadi server.
   if (matchType !== "double") {
     return {
       nextServer: `${pointWinner}1`,
@@ -251,8 +250,6 @@ function getServerAndPositionsAfterPoint(data, pointWinner, nextScoreForWinner) 
   const currentServerTeam = serverTeam(currentServer);
   const nextPositions = cloneServicePositions(data);
 
-  // Jika tim yang sedang serve mendapat poin:
-  // pemain server tetap sama, tetapi pasangan pada tim tersebut bertukar court.
   if (pointWinner === currentServerTeam) {
     swapTeamCourts(nextPositions, pointWinner);
 
@@ -262,9 +259,6 @@ function getServerAndPositionsAfterPoint(data, pointWinner, nextScoreForWinner) 
     };
   }
 
-  // Jika receiver mendapat poin:
-  // tidak ada pemain yang bertukar court.
-  // Server baru adalah pemain dari tim pemenang yang berada pada court sesuai skor timnya.
   const court = requiredServiceCourt(nextScoreForWinner);
 
   return {

@@ -1,4 +1,4 @@
-# Gaston Scoreboard v22
+# Gaston Scoreboard v23
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -175,15 +175,12 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
 - Bagian info di bawah scoreboard sekarang hanya menyisakan **Server**.
 
 
-## Perubahan v22
+## Perubahan v23
 
-- Logika serve ganda diperbaiki mengikuti aturan court position.
-- Saat tim yang sedang serve mendapat poin:
-  - server tetap orang yang sama
-  - posisi kanan/kiri tim tersebut otomatis bertukar
-- Saat receiver mendapat poin:
-  - service pindah ke tim lawan
-  - tidak ada pemain yang bertukar posisi
-  - server baru dipilih dari pemain yang sedang berada di court kanan/kiri sesuai skor tim tersebut
-- Tombol server manual tetap tersedia, dan sekarang ikut merapikan posisi internal pemain agar perpindahan berikutnya tetap benar.
-- Saat Next Game, Reset Rally, Match Info, atau Pertandingan Baru, posisi service kembali ke kondisi awal: Tim A Orang 1 di kanan, Tim A Orang 2 di kiri, Tim B Orang 1 di kanan, Tim B Orang 2 di kiri.
+- Tampilan dikembalikan ke tampilan v21.
+- Tidak ada perubahan tampilan/HTML/CSS selain cache versi.
+- Perbaikan yang dipertahankan hanya logika serve ganda:
+  - posisi kanan/kiri pemain ganda dilacak
+  - serving side bertukar posisi saat menang rally
+  - receiving side menjadi server tanpa bertukar posisi
+  - manual server tetap bisa dipakai untuk koreksi
