@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=23.0.0" />
+  <link rel="stylesheet" href="css/style.css?v=25.0.0" />
 </head>
 <body class="page-shell admin-page">
   <header class="topbar">
@@ -43,7 +43,7 @@
             <label class="double-field is-hidden">Pemain Tim B - Orang 2<input id="inputPlayerB2" type="text" /></label>
           </div>
           <button id="saveMatchInfo" class="primary-btn full">Save Match Info & Start Timer</button>
-          <p class="form-note">Untuk memulai pertandingan baru di court ini, isi nama pemain lalu klik <b>Pertandingan Baru</b>. Tombol tersebut akan reset skor, kembali ke Game 1, dan mulai timer dari 00:00:00.</p>
+          <p class="form-note">Isi data pemain, lalu klik tombol simpan untuk memulai timer.</p>
         </section>
     
     <section class="panel match-overview">
@@ -109,28 +109,6 @@
             <button id="adminFullscreenBtn"><span>Fullscreen</span></button>
           </div>
         </section>
-    
-    <section class="panel status-info">
-          <div class="section-title"><span>5</span> Status / Info</div>
-          <div class="info-grid">
-            <div class="info-card small">
-              <div class="round-icon yellow">◎</div>
-              <div><small>Status</small><b id="adminStatus">Live</b></div>
-            </div>
-            <div class="info-card small">
-              <div class="round-icon blue">▮</div>
-              <div><small>Current Game</small><b id="adminCurrentGame">1</b></div>
-            </div>
-            <div class="info-card small">
-              <div class="round-icon purple">◷</div>
-              <div><small>Match Time</small><b id="adminTimer">00:00:00</b></div>
-            </div>
-            <div class="info-card small">
-              <div class="round-icon green-bg"><i class="shuttle-icon tiny"></i></div>
-              <div><small>Server</small><b id="adminServer">A1</b></div>
-            </div>
-          </div>
-        </section>
   </main>
 
 
@@ -147,6 +125,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/admin.js?v=23.0.0"></script>
+  <script type="module" src="js/admin.js?v=25.0.0"></script>
 </body>
 </html>

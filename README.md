@@ -1,4 +1,4 @@
-# Gaston Scoreboard v23
+# Gaston Scoreboard v25
 
 Aplikasi web scoreboard bulu tangkis berbasis GitHub Pages + Firebase Realtime Database.
 
@@ -164,23 +164,27 @@ Setelah GitHub Pages update, gunakan hard refresh: Ctrl + F5.
   - pada HP tetap nyaman digunakan dengan dua kolom kontrol.
 
 
-## Perubahan v21
+## Perubahan v24
 
-### Admin Panel
-- Tombol pada **Match Actions** dibuat **teks saja** tanpa ikon agar lebih hemat ruang.
-- Bagian **Status / Info** disembunyikan karena tidak terlalu diperlukan.
+- Tampilan dikembalikan ke v20.
+- Artinya:
+  - Match Info tetap menjadi bagian pertama.
+  - Header mobile tetap bersih.
+  - Score Control tetap ringkas.
+  - Status/Info admin dan info scoreboard kembali seperti v20.
+- Perbaikan yang ditambahkan hanya logika serve ganda.
 
-### Scoreboard
-- Informasi **Status**, **Current Game**, dan **Match Time** disembunyikan.
-- Bagian info di bawah scoreboard sekarang hanya menyisakan **Server**.
 
+## Perubahan v25
 
-## Perubahan v23
-
-- Tampilan dikembalikan ke tampilan v21.
-- Tidak ada perubahan tampilan/HTML/CSS selain cache versi.
-- Perbaikan yang dipertahankan hanya logika serve ganda:
-  - posisi kanan/kiri pemain ganda dilacak
-  - serving side bertukar posisi saat menang rally
-  - receiving side menjadi server tanpa bertukar posisi
-  - manual server tetap bisa dipakai untuk koreksi
+- Admin Panel dibuat jauh lebih ringkas.
+- Header admin diperkecil.
+- Match Info tetap urutan pertama, tetapi form dipadatkan.
+- Match Overview dibuat lebih pendek.
+- Score Control dibuat ringkas:
+  - tombol +1 dan -1 lebih kecil
+  - tombol server menjadi lebih hemat ruang
+  - tetap nyaman digunakan di HP
+- Match Actions dibuat teks saja dan lebih pendek.
+- Status/Info admin disembunyikan.
+- Logika serve ganda dari v24 tetap dipertahankan.

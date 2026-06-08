@@ -1,2 +1,2 @@
-Gaston Scoreboard v23.0.0
-Visuals restored to v21. Only doubles serve logic is updated.
+Gaston Scoreboard v25.0.0
+Changes: much more compact admin panel while keeping v24 doubles serve logic.

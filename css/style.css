@@ -2379,3 +2379,380 @@ button, a { -webkit-tap-highlight-color: transparent; }
     font-size: 10.5px !important;
   }
 }
+
+
+/* =========================
+   v25: compact Admin Panel
+   ========================= */
+
+/* Admin header lebih ramping */
+.admin-page.page-shell {
+  padding: 10px 14px !important;
+}
+
+.admin-page .topbar {
+  min-height: 76px !important;
+  padding: 10px 18px !important;
+  border-radius: 16px !important;
+}
+
+.admin-page .brand {
+  gap: 12px !important;
+}
+
+.admin-page .brand-logo {
+  width: 46px !important;
+  height: 46px !important;
+}
+
+.admin-page .shuttle-mark::before {
+  width: 46px !important;
+  height: 36px !important;
+}
+
+.admin-page .brand h1 {
+  font-size: 28px !important;
+}
+
+.admin-page .brand p {
+  margin-top: 4px !important;
+  font-size: 13px !important;
+}
+
+.admin-page .live-pill,
+.admin-page .home-btn,
+.admin-page .icon-btn {
+  height: 42px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+}
+
+.admin-page .icon-btn {
+  width: 42px !important;
+}
+
+/* Layout admin lebih padat */
+.admin-grid {
+  grid-template-columns: minmax(310px, .82fr) minmax(420px, 1.18fr) !important;
+  gap: 12px !important;
+  margin-top: 12px !important;
+}
+
+.admin-grid .panel {
+  padding: 14px !important;
+  border-radius: 16px !important;
+}
+
+.match-form {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+}
+
+.match-overview {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+}
+
+.score-control {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+}
+
+.match-actions {
+  grid-column: 1 / span 2 !important;
+  grid-row: 3 !important;
+}
+
+.status-info {
+  display: none !important;
+}
+
+.admin-page .section-title {
+  font-size: 20px !important;
+  margin-bottom: 10px !important;
+  gap: 10px !important;
+}
+
+.admin-page .section-title span {
+  width: 28px !important;
+  height: 28px !important;
+  font-size: 14px !important;
+}
+
+/* Match Info dibuat ringkas */
+.match-form .form-grid {
+  gap: 9px !important;
+}
+
+.match-form .form-grid label {
+  font-size: 11px !important;
+}
+
+.match-form .form-grid input,
+.match-form .form-grid select {
+  height: 38px !important;
+  margin-top: 5px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  padding: 0 10px !important;
+}
+
+.match-form .primary-btn.full {
+  min-height: 44px !important;
+  margin-top: 12px !important;
+  font-size: 14px !important;
+  padding: 0 16px !important;
+  border-radius: 12px !important;
+}
+
+.match-form .form-note {
+  margin: 8px 0 0 !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+
+/* Match Overview lebih pendek */
+.compact-head {
+  height: 30px !important;
+  font-size: 13px !important;
+}
+
+.compact-head,
+.compact-row {
+  grid-template-columns: 1fr 82px 82px 90px !important;
+}
+
+.compact-row {
+  min-height: 74px !important;
+}
+
+.compact-row strong {
+  min-height: 74px !important;
+}
+
+.compact-names {
+  padding-left: 12px !important;
+  padding-right: 8px !important;
+}
+
+.compact-player-line {
+  font-size: 21px !important;
+  line-height: 1.08 !important;
+}
+
+.compact-row > span,
+.compact-row > strong {
+  font-size: 30px !important;
+}
+
+/* Score Control: tombol tetap nyaman, tapi tidak terlalu besar */
+.score-control {
+  padding: 14px !important;
+}
+
+.control-cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+.control-card {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+  padding: 12px !important;
+  border-radius: 14px !important;
+}
+
+.control-card h2 {
+  grid-column: 1 / -1 !important;
+  margin: 0 0 4px !important;
+  font-size: 18px !important;
+  line-height: 1.15 !important;
+  min-height: 40px;
+  overflow-wrap: anywhere;
+}
+
+.score-btn {
+  width: 100% !important;
+  height: 50px !important;
+  margin: 0 !important;
+  border-radius: 12px !important;
+  font-size: 30px !important;
+}
+
+.server-select {
+  grid-column: 1 / -1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 7px !important;
+  margin-top: 4px !important;
+  padding-top: 9px !important;
+}
+
+.server-select small {
+  grid-column: 1 / -1 !important;
+  margin-bottom: 0 !important;
+  font-size: 10px !important;
+  letter-spacing: .2px;
+}
+
+.server-person-btn {
+  min-height: 36px !important;
+  margin-top: 0 !important;
+  padding: 6px 9px !important;
+  border-radius: 10px !important;
+  font-size: 11px !important;
+}
+
+/* Match Actions text-only dan hemat ruang */
+.action-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+
+.action-grid button,
+.action-link {
+  min-height: 48px !important;
+  padding: 8px 8px !important;
+  border-radius: 12px !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.action-grid button span,
+.action-link span {
+  margin: 0 !important;
+  font-size: 12px !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+}
+
+/* Mobile */
+@media (max-width: 1100px) {
+  .admin-page.page-shell {
+    padding: 8px !important;
+  }
+
+  .admin-page .top-actions {
+    display: none !important;
+  }
+
+  .admin-page .topbar {
+    min-height: 66px !important;
+    padding: 8px 12px !important;
+    justify-content: flex-start !important;
+  }
+
+  .admin-page .brand-logo {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .admin-page .shuttle-mark::before {
+    width: 40px !important;
+    height: 32px !important;
+  }
+
+  .admin-page .brand h1 {
+    font-size: 22px !important;
+  }
+
+  .admin-page .brand p {
+    font-size: 12px !important;
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
+  }
+
+  .match-form,
+  .match-overview,
+  .score-control,
+  .match-actions {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .admin-grid .panel {
+    padding: 12px !important;
+  }
+
+  .admin-page .section-title {
+    font-size: 18px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .compact-head,
+  .compact-row {
+    grid-template-columns: 1fr 58px 58px 64px !important;
+  }
+
+  .compact-row {
+    min-height: 64px !important;
+  }
+
+  .compact-row strong {
+    min-height: 64px !important;
+  }
+
+  .compact-player-line {
+    font-size: 18px !important;
+  }
+
+  .compact-row > span,
+  .compact-row > strong {
+    font-size: 24px !important;
+  }
+
+  .control-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .control-card {
+    padding: 9px !important;
+    gap: 6px !important;
+  }
+
+  .control-card h2 {
+    font-size: 14px !important;
+    min-height: 34px;
+  }
+
+  .score-btn {
+    height: 44px !important;
+    font-size: 26px !important;
+  }
+
+  .server-select {
+    grid-template-columns: 1fr !important;
+    gap: 5px !important;
+  }
+
+  .server-person-btn {
+    min-height: 32px !important;
+    font-size: 10px !important;
+    padding: 5px 7px !important;
+  }
+
+  .action-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+
+  .action-grid button,
+  .action-link {
+    min-height: 42px !important;
+    font-size: 12px !important;
+  }
+
+  .action-grid button span,
+  .action-link span {
+    font-size: 11px !important;
+  }
+}
